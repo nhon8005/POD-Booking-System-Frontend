@@ -1,3 +1,4 @@
+import React from "react";
 import { Link } from "react-router-dom";
 
 export default function AnchorComponent({ icon, text, badge, arrow, children, ...rest }) {

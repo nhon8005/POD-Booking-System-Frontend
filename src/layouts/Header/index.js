@@ -255,7 +255,7 @@ const Header = () => {
                   onClick={handleOpenMyAcc}>
                   <div className="userImg">
                     <span className="rounded-circle">
-                      <img src="https://avatars.githubusercontent.com/u/155642553?v=4" />
+                      <img src="/images/01.webp" />
                     </span>
                   </div>
                   <div className="userInfo">

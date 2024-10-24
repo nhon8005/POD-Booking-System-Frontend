@@ -1,0 +1,135 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Miron Mahmud",
+      "src": "images/02.webp",
+      "time": "Now",
+      "text": "What's your current career opportunity?",
+      "status": "online",
+      "active": "active",
+      "mark": "unread",
+      "badge": 3
+    },
+    {
+      "id": 2,
+      "name": "Tahmina Bonny",
+      "src": "images/02.webp",
+      "time": "3m",
+      "text": "What are you working on?",
+      "status": "offline"
+    },
+    {
+      "id": 3,
+      "name": "Labonno Khan",
+      "src": "images/03.webp",
+      "time": "5h",
+      "text": "Any plans for the weekend?",
+      "status": "offline",
+      "mark": "unread",
+      "badge": 1
+    },
+    {
+      "id": 3,
+      "name": "Labonno Khan",
+      "src": "images/04.webp",
+      "time": "5h",
+      "text": "Any plans for the weekend?",
+      "status": "offline",
+      "mark": "unread",
+      "badge": 1
+    },
+    {
+      "id": 3,
+      "name": "Labonno Khan",
+      "src": "images/05.webp",
+      "time": "5h",
+      "text": "Any plans for the weekend?",
+      "status": "offline",
+      "mark": "unread",
+      "badge": 1
+    },
+    {
+      "id": 3,
+      "name": "Labonno Khan",
+      "src": "images/06.webp",
+      "time": "5h",
+      "text": "Any plans for the weekend?",
+      "status": "offline",
+      "mark": "unread",
+      "badge": 1
+    },
+    {
+      "id": 3,
+      "name": "Labonno Khan",
+      "src": "images/03.webp",
+      "time": "5h",
+      "text": "Any plans for the weekend?",
+      "status": "offline",
+      "mark": "unread",
+      "badge": 1
+    }
+  ],
+  "chats": [
+    {
+      "id": 1,
+      "src": "images/02.webp",
+      "time": "2 minute ago!",
+      "text": [
+        {
+          "text": "Lorem ipsum dolor, sit amet consectetur adipisicing elit.",
+          "icon": ["done_all"]
+        },
+        {
+          "text": "Omnis dolorem tempora consequatur.",
+          "icon": []
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "src": "images/01.webp",
+      "time": "2 minute ago!",
+      "text": [
+        {
+          "text": "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+          "icon": []
+        },
+        {
+          "text": "Omnis dolorem tempora consequatur.",
+          "icon": []
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "src": "images/02.webp",
+      "time": "2 minute ago!",
+      "text": [
+        {
+          "text": "Lorem ipsum dolor, sit amet consectetur adipisicing elit.",
+          "icon": ["done_all"]
+        },
+        {
+          "text": "Omnis dolorem tempora consequatur.",
+          "icon": []
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "src": "images/01.webp",
+      "time": "2 minute ago!",
+      "text": [
+        {
+          "text": "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+          "icon": []
+        },
+        {
+          "text": "Omnis dolorem tempora consequatur.",
+          "icon": []
+        }
+      ]
+    }
+  ]
+}

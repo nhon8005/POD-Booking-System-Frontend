@@ -1,15 +1,40 @@
 
-
+import React, { useState,useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Row, Col, Dropdown } from "react-bootstrap";
-import LabelFieldComponent from "../../../components/fields/LabelFieldComponents";
+import LabelFieldComponent from "../../../components/fields/LabelFieldComponent";
 import UsersTableComponent from "../../../components/tables/UsersTableComponents";
-import users from "../../../assets/data/users.json";
+// import users from "../../../assets/data/users.json";
 import PaginationComponent from "../../../components/PaginationComponent";
 import Footer from "../../../layouts/Footer";
+import api from "../../../config/axios"
+import { useColorScheme } from "@mui/material";
 
 const Users = () => {
-    console.log("Users component rendered");
+    const [account, setUsers] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+  
+    useEffect(() => {
+      const fetchUsers = async () => {
+        try {
+          const response = await api.get("/user");
+          console.log(response.data);
+          setUsers(response.data);
+          setLoading(false);
+        } catch (error) {
+          setError(error);
+          setLoading(false);
+          console.log("Error fetching users:", error);
+        }
+      };
+  
+      fetchUsers();
+    }, []);
+  
+    if (loading) return <div>Loading...</div>;
+    if (error) return <div>Error loading users!</div>;
+  
     return (
         
             <div className="mc-main active">
@@ -100,8 +125,8 @@ const Users = () => {
                                 </Col>
                             </Row>
                             <UsersTableComponent
-                                thead={ users.thead}
-                                tbody={ users.tbody }
+                                thead={["ID", "UserName", "Email", "Phone", "Role", "Password", "Action"]}
+                                tbody={account}
                             />
                             <PaginationComponent />
                           
@@ -116,22 +141,3 @@ const Users = () => {
 
 export default Users;
 
-{/* <div className="right-content w-100">
-<div className="row">
-    <div className="col-xl-12">
-        <div className="userlistBoxWrapper d-flex">
-            <div className="userlistBox">
-
-            </div>
-            <div className="userlistBox">
-
-            </div>
-            <div className="userlistBox">
-
-            </div>
-
-
-        </div>
-    </div>
-</div>
-</div> */}

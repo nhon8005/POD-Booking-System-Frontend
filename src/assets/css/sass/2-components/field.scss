@@ -210,3 +210,18 @@ body.dark .mc-label-field-select {
             background-position: left 0px center;
         }
     }
+
+    body.dark .mc-icon-field {
+
+        select{
+            background-color: #071739;
+            color: #B4B4B4
+        }
+        
+    }
+
+    body.dark .mc-label-field-textarea {
+        background-color: #1B2B4D;
+        color: #B4B4B4;
+        border: 1px solid #213562;
+    }

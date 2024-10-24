@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Modal, Form } from "react-bootstrap";
-import ButtonComponent from '../../elements/ButtonComponent';
-import AnchorComponent from '../../elements/AnchorComponent';
+import ButtonComponent from '../elements/ButtonComponent';
+import AnchorComponent from '../elements/AnchorComponent';
 
 
 

@@ -49,6 +49,9 @@ body.dark .mc-table-body td {
     border-bottom: 1px solid #223865;
 }
 
+body.dark .mc-table-head th {
+    color: #FFFFFF;
+}
 
 body.dark .mc-table-body td:last-child {
     border-right: none;
@@ -76,6 +79,14 @@ body.dark .mc-table-head.primary p {
 
 body.dark .mc-table-profile p {
   color: #ACADAF;
+}
+
+body.dark .mc-table-product h6 {
+    color: #ACADAF;
+}
+
+body.dark .mc-table-rating h3 {
+    color: #ACADAF;
 }
 
 .mc-table {

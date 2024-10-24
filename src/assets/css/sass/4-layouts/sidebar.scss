@@ -30,13 +30,15 @@ text-transform: capitalize !important; font-weight: 500 !important;
 font-family: "Open Sans", sans-serif !important; font-size: 15px !important;}
 .main .sidebarWrapper .sidebar ul li button .icon{display: flex; align-items: center; justify-content: center;
 width: 25px; height: 25px; margin-right: 10px;}
-.main .sidebarWrapper .sidebar ul li button .icon svg{font-size: 25px;}
-.main .sidebarWrapper .sidebar ul li button .arrow{margin-left: auto; display: flex; align-items: center; 
+.main .sidebarWrapper .sidebar ul li button .icon svg{font-size: 25px; }
+.main .sidebarWrapper .sidebar ul li button .arrow{ margin-left: auto; display: flex; align-items: center; 
 justify-content: center; width: 25px; height: 25px; transition: transform 0.3s ease; gap: 10px;}
+
 .main .sidebarWrapper .sidebar ul li button *{color: #5e5d72 !important;}
 .main .sidebarWrapper .sidebar ul li button:hover{background: #f1f1f1 !important;}
 .main .sidebarWrapper .sidebar ul li button.active{background: #f1f1f1 !important;}
 .main .sidebarWrapper .sidebar ul li button.active .arrow{transform: rotate(90deg);}
+
 
 
 /* submenu User */
@@ -50,7 +52,7 @@ display: block; padding: 6px 0px; font-size: 14px; font-weight: 500;}
 .main .sidebarWrapper .sidebar ul .submenu li a:hover{color: #0858f7 !important;}
 
 /* Dropdwon submenu */
-.main .sidebarWrapper .sidebar ul .submenuWrapper{transition: transform 0.4s ease; height: 104px; overflow: hidden; opacity: 1;}
+.main .sidebarWrapper .sidebar ul .submenuWrapper{transition: transform 0.4s ease; overflow: hidden; opacity: 1;}
 
 .main .sidebarWrapper .sidebar ul .submenuWrapper .collapsed .submenu{opacity: 0;}
 

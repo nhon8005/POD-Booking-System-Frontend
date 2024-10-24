@@ -16,7 +16,7 @@ img {
 
 a {
     text-decoration: none;
-    display: inline-block;
+    // display: inline-block;
     color: #5e5d72;
 
     &:hover { 
@@ -60,13 +60,13 @@ body {
     background-color: #ffffff;
 }
 
-html[dir="rtl"] {
-    direction: rtl;
-}
+// html[dir="rtl"] {
+//     direction: rtl;
+// }
 
-html[dir="ltr"] {
-    direction: ltr;
-}
+// html[dir="ltr"] {
+//     direction: ltr;
+// }
 
 input,
 select,

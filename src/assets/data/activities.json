@@ -1,0 +1,25 @@
+[
+    {
+        "title": "Your account is logged in",
+        "time": "45 min ago",
+        "text": "The order has been successfully completed.",
+        "media": {
+            "src": "/assets/images/order-complete.jpg",
+            "alt": "Order Completion",
+            "name": "Invoice PDF"
+        },
+        "button": {
+            "path": "/orders/1245",
+            "label": "View Details"
+        }
+    },
+    {
+        "title": "New Client Registered",
+        "time": "2024-10-12 11:45",
+        "text": "A new client has joined the platform.",
+        "button": {
+            "path": "/clients/5678",
+            "label": "View Client"
+        }
+    }
+]
