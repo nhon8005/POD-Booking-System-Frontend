@@ -1,0 +1,93 @@
+/* index.scss */
+
+.header-container {
+  background-color: #4b2e14; // Brown theme for header
+  position: fixed;
+  z-index: 1;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0;
+
+  .header {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    background-color: #4b2e14; // Dark brown for the menu background
+    height: 150px;
+  }
+
+  .logo {
+    height: 150px; // Matches the height of the header
+    width: 150px; // Adjust the logo container width for better balance
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #4b2e14; // Consistent brown background
+
+    img {
+      height: 145px; // Smaller logo for better alignment
+      width: auto;
+      border-radius: 50%; // Makes the logo circular
+    }
+  }
+
+  .menu {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    background-color: #6f441e; // Consistent dark blue background
+
+    .left-menu {
+      display: flex;
+    }
+
+    .right-menu {
+      display: flex;
+      margin-left: auto; // Pushes login/register to the right side
+    }
+
+    .menu-item {
+      color: #f5f5dc;
+      font-size: 16px;
+      padding: 0 20px;
+      line-height: 64px; // Centers items vertically
+      
+
+      &:hover {
+        background-color: #8b4513; // Dark brown on hover
+      }
+
+      &.ant-menu-item-selected {
+        background-color: #d2691e; // Lighter brown for selected items
+        color: #fff;
+      }
+    }
+
+    .cart-icon {
+      font-size: 22px;
+      color: #fff;
+      line-height: 64px; // Centers the icon vertically
+    }
+
+    /* Submenu styling */
+    .ant-menu-submenu-title {
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      &:hover {
+        background-color: #8b4513;
+      }
+    }
+
+    .submenu-item {
+      background-color: #4b2e14;
+      color: #f5f5dc;
+      &:hover {
+        background-color: #d2691e;
+        color: #fff;
+      }
+    }
+  }
+}
