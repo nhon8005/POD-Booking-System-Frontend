@@ -1,7 +1,36 @@
-/* index.scss */
+
+.menu {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  background-color: #4b2e14;
+
+  .ant-menu-item {
+    color: #f5f5dc; // Màu chữ mặc định
+    padding: 0 20px;
+    line-height: 64px;
+
+    &.ant-menu-item-selected {
+      background-color: transparent !important; // Bỏ màu nền khi được chọn
+      color: #f5f5dc; // Giữ màu chữ
+    }
+
+    &.ant-menu-item {
+      background-color: transparent !important; // Bỏ màu nền khi được chọn
+      color: #f5f5dc; // Giữ màu chữ
+    }
+
+    &:hover {
+      background-color: #8b4513; // Màu nền khi hover
+    }
+}
+
+}
+
+
 
 .header-container {
-  background-color: #4b2e14; // Brown theme for header
+  background-color: #4b2e14; 
   position: fixed;
   z-index: 1;
   width: 100%;
@@ -10,26 +39,29 @@
   align-items: center;
   padding: 0;
 
+ 
+
   .header {
     display: flex;
     align-items: center;
     width: 100%;
-    background-color: #4b2e14; // Dark brown for the menu background
+    background-color: #4b2e14; 
     height: 150px;
+    
   }
 
+
   .logo {
-    height: 150px; // Matches the height of the header
-    width: 150px; // Adjust the logo container width for better balance
+    height: 150px; 
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #4b2e14; // Consistent brown background
+    background-color: #4b2e14; 
 
     img {
-      height: 145px; // Smaller logo for better alignment
+      height: 145px; 
       width: auto;
-      border-radius: 50%; // Makes the logo circular
+      border-radius: 50%; 
     }
   }
 
@@ -37,7 +69,8 @@
     display: flex;
     justify-content: space-between;
     width: 100%;
-    background-color: #6f441e; // Consistent dark blue background
+    background-color: #6f441e; 
+    border-radius: 8px;
 
     .left-menu {
       display: flex;
@@ -45,30 +78,41 @@
 
     .right-menu {
       display: flex;
-      margin-left: auto; // Pushes login/register to the right side
+      margin-left: auto; 
     }
 
     .menu-item {
       color: #f5f5dc;
       font-size: 16px;
       padding: 0 20px;
-      line-height: 64px; // Centers items vertically
+      line-height: 64px; 
       
+    
 
-      &:hover {
-        background-color: #8b4513; // Dark brown on hover
-      }
-
-      &.ant-menu-item-selected {
-        background-color: #d2691e; // Lighter brown for selected items
+      &.ant-menu-item-submenu {
+        background-color: transparent !important; 
         color: #fff;
+        
       }
+      
+    }
+
+    .ant-menu-title-content {
+      color: #f5f5dc;
+      font-size: 16px;
+      padding: 0 20px;
+      line-height: 64px;  
+    }
+
+    .ant-menu-title-content a{
+      text-decoration: none;
+    
     }
 
     .cart-icon {
       font-size: 22px;
       color: #fff;
-      line-height: 64px; // Centers the icon vertically
+      line-height: 64px; 
     }
 
     /* Submenu styling */

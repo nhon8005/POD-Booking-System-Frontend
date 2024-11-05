@@ -71,20 +71,20 @@ const AboutUs = () => {
           <div className="text-content">
             <h2>What we aim?</h2>
             <p>
-              At Boo Coffee, our mission is to revolutionize how people work by making comfortable,<br/>
-              inspiring spaces in coffee shops easily accessible for everyone. We understand that the traditional<br/>
-              office environment isn’t suitable for everyone, and finding the right space to focus, create, and <br/>
-              collaborate can be challenging. That’s why we’re committed to connecting professionals, freelancers,<br/>
-              students, and remote workers with ideal coffee shop environments that foster productivity and creativity.<br/>
-              <br/>
-              Our platform simplifies the process of discovering and booking the perfect working spot in local coffee shops. <br/>
-              Whether you’re looking for a quiet corner to concentrate, a lively ambiance to fuel creativity, or a spot for <br/>
-              team collaboration, we’re here to make sure you find exactly what you need. We aim to support local businesses <br/>
-              by promoting unique workspaces in coffee shops while giving you the flexibility to work where and when it suits <br/>
-              you best.<br/>
-              <br/>
-              By empowering the work-from-anywhere lifestyle, we strive to enhance work-life balance and contribute to a more <br/>
-              dynamic, flexible work culture. We believe that great ideas can be born anywhere, and our goal is to provide the<br/>
+              At Boo Coffee, our mission is to revolutionize how people work by making comfortable,<br />
+              inspiring spaces in coffee shops easily accessible for everyone. We understand that the traditional<br />
+              office environment isn’t suitable for everyone, and finding the right space to focus, create, and <br />
+              collaborate can be challenging. That’s why we’re committed to connecting professionals, freelancers,<br />
+              students, and remote workers with ideal coffee shop environments that foster productivity and creativity.<br />
+              <br />
+              Our platform simplifies the process of discovering and booking the perfect working spot in local coffee shops. <br />
+              Whether you’re looking for a quiet corner to concentrate, a lively ambiance to fuel creativity, or a spot for <br />
+              team collaboration, we’re here to make sure you find exactly what you need. We aim to support local businesses <br />
+              by promoting unique workspaces in coffee shops while giving you the flexibility to work where and when it suits <br />
+              you best.<br />
+              <br />
+              By empowering the work-from-anywhere lifestyle, we strive to enhance work-life balance and contribute to a more <br />
+              dynamic, flexible work culture. We believe that great ideas can be born anywhere, and our goal is to provide the<br />
               spaces where they can grow.
             </p>
           </div>
@@ -96,8 +96,8 @@ const AboutUs = () => {
 
       <h3>Our team</h3>
       <div className="team-members">
-        {teamMembers.map((member) => (
-          <Card className="team-member" key={member.name}>
+        {teamMembers.map((member, index) => (
+          <Card className="team-member" key={`${member.name}-${index}`}>
             <img src={member.image} alt={member.name} className="member-image" />
             <h2>{member.name}</h2>
             <p>{member.role}</p>
@@ -115,6 +115,7 @@ const AboutUs = () => {
           </Card>
         ))}
       </div>
+
     </div>
   );
 };

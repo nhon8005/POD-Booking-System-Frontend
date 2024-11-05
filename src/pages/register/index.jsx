@@ -11,10 +11,13 @@ function RegisterPage() {
 
   const handleRegister = async (values) => {
     try {
-      values.role = "MEMBER";
-      const response = await api.post("register", values);
-      toast.success("Successfully create an account");
-      navigate("/login");
+      values.role = "USER";
+      const response = await api.post("account/register", values);
+      if(response.status === 200) {
+        toast.success("Successfully create an account");
+        navigate("/login");
+      }
+      
     } catch (err) {
       //console.log
       toast.error(err.response.data);

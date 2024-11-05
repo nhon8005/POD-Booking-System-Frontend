@@ -6,6 +6,7 @@ import { rootReducer } from './features/rootReducer'
 const persistConfig = {
     key: 'root',
     storage,
+    blacklist: ['register'],
   }
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)

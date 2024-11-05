@@ -44,7 +44,7 @@ function LoginPage() {
 
   const handleLogin = async (values) => {
   try{  
-      const response = await api.post('login', values);
+      const response = await api.post('account/login', values);
       toast.success("Success")
       console.log(response.data);
       dispatch(login(response.data))
@@ -52,9 +52,12 @@ function LoginPage() {
 
       localStorage.setItem("token", token);
 
-      if(role === 'MEMBER'){
-        navigate("/");
-      }
+
+      navigate("/");
+      // if (role === 'USER') {   
+      //   navigate("/");
+      // }
+      
     }catch(err){
       toast.error(err.response.data);
     }
