@@ -23,7 +23,7 @@ import ProductsPage from "./pages/product";
 import CartPage from "./pages/cart";
 import PODBookingPage from "./pages/pod-booking";
 import CoffeeShopsPage from "./pages/shop";
-
+import PaymentPage from "./pages/payment";
 const Mycontext = createContext();
 
 function App() {
@@ -60,6 +60,10 @@ function App() {
           element: <HomePage />,
         },
         {
+          path: "payment",
+          element: <PaymentPage />,
+        },
+        {
           path: "about-us",
           element: <AboutUs />,
         },
@@ -87,6 +91,11 @@ function App() {
     {
       path: "test2",
       element: <CoffeeShopsPage />,
+    },
+
+    {
+      path: "payment",
+      element: <PaymentPage />,
     },
 
     {
@@ -121,7 +130,7 @@ function App() {
           path: "user-profile",
           element: <UserProfile />,
         },
-        
+
         {
           path: "my-account",
           element: <MyAccount />,
@@ -165,8 +174,7 @@ function App() {
         {
           path: "booking",
           element: <Booking />,
-        },
-
+        }
 
       ],
     },
