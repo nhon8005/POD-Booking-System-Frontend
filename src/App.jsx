@@ -17,6 +17,12 @@ import Invoices from "./admin/pages_admin/Invoice";
 import MessagePage from "./admin/pages_admin/Message";
 import SettingsPage from "./admin/pages_admin/Settings";
 import Booking from "./admin/pages_admin/Booking";
+import BookingPage from "./pages/booking";
+import PodsPage from "./pages/pod";
+import ProductsPage from "./pages/product";
+import CartPage from "./pages/cart";
+import PODBookingPage from "./pages/pod-booking";
+import CoffeeShopsPage from "./pages/shop";
 
 const Mycontext = createContext();
 
@@ -57,7 +63,35 @@ function App() {
           path: "about-us",
           element: <AboutUs />,
         },
+        {
+          path: "book",
+          element: <BookingPage />,
+        },
+        {
+          path: "product",
+          element: <ProductsPage />,
+        },
       ],
+    },
+
+    {
+      path: "test",
+      element: <PodsPage />,
+    },
+
+    {
+      path: "test1",
+      element: <PODBookingPage />,
+    },
+
+    {
+      path: "test2",
+      element: <CoffeeShopsPage />,
+    },
+
+    {
+      path: "cart",
+      element: <CartPage />,
     },
 
     {

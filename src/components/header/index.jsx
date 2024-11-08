@@ -22,7 +22,7 @@ function Header() {
     },
     {
       key: "2",
-      label: "Book office",
+      label: <Link to="/book">Booking</Link>,
       
     },
     {
@@ -32,16 +32,12 @@ function Header() {
       
       children: [
         {
-          key: "food",
-          label: "Food",
+          key: "POD",
+          label: <Link to="/product">Product</Link>,
         },
         {
-          key: "drink",
-          label: "Drink",
-        },
-        {
-          key: "utilities",
-          label: "Utilities",
+          key: "Product",
+          label: <Link to="/">Order</Link>,
         },
       ],
     },
@@ -58,9 +54,11 @@ function Header() {
     {
       key: "6",
       label: (
-        <Badge count={cart.length}>
-          <ShoppingCartOutlined className="cart-icon" />
-        </Badge>
+        <Link to="/cart">
+          <Badge count={cart.length}>
+            <ShoppingCartOutlined className="cart-icon" />
+          </Badge>
+        </Link>
       ),
     },
     {
