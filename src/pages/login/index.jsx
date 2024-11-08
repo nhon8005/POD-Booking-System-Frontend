@@ -51,7 +51,8 @@ function LoginPage() {
       const {role , token} = response.data;
 
       localStorage.setItem("token", token);
-
+      localStorage.setItem("role", role);
+      localStorage.setItem("name", response.data.name);
 
       navigate("/");
       // if (role === 'USER') {   
