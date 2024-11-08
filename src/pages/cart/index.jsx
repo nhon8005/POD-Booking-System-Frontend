@@ -38,21 +38,20 @@ function CartPage() {
     selectedRowKeys,
     onChange: onSelectChange,
   };
-  const handleBuy = (record) => {
-    axios.post('/api/orders', {
-      detail: [
-        {
-          productId: record.id,
-          quantity: record.quantity,
-        },
-      ],
-    })
-    .then(response => {
-      console.log('Order submitted:', response.data);
-    })
-    .catch(error => {
-      console.error('There was an error submitting the order!', error);
-    });
+  const handleBuy = async () => {
+    try {
+      const productBought = data.filter((product) => selectedRowKeys.includes(product.id));
+      const detail = productBought.map((product) => ({
+        productId: product.id,
+        quantity: product.quantity,
+      }));
+      const response = await api.post("orders", { detail: detail });
+      dispatch(clearAll());
+      console.log(response.data);
+      window.open(response.data);
+    } catch (err) {
+      toast.error("Purchase failed");
+    }
   };
   return (
     <div className={styles["cart-page"]}>
