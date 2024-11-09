@@ -57,27 +57,10 @@ const CoffeeShopsPage = () => {
   if (error) return <p>Error: {error.message}</p>;
 
   return (
-    <div className={styles.coffeeShopsPage}>
-      <Link to="/" className={styles.logoButton}>
-        <img src={logo} alt="Logo" />
-      </Link>
+    <div className={styles.coffeeShopsPage} style={{ marginTop: "135px" }}>
       <h1>Coffee Shops</h1>
-      <p>
-        Discover the best coffee shops around you. Search by name or address.
-      </p>
-      <div className={styles.coffeeShopsGrid}>
-        {coffeeShops.map(shop => (
-          <Link to={`/coffee-shops/${shop.id}`} key={shop.id} className={styles.coffeeShopCard}>
-            <img src={shop.image} alt={shop.name} />
-            <h2>{shop.name}</h2>
-            <p>{shop.address}</p>
-          </Link>
-        ))}
-      </div>
-      
       <h2>Search by name</h2>
       <p>Find a coffee shop by name</p>
-
       <form className={styles.searchForm} onSubmit={(e) => e.preventDefault()}>
         <input
           type="text"
@@ -96,6 +79,15 @@ const CoffeeShopsPage = () => {
           Search
         </button>
       </form>
+      <div className={styles.coffeeShopsGrid}>
+        {coffeeShops.map(shop => (
+          <Link to={`/coffee-shops/${shop.id}`} key={shop.id} className={styles.coffeeShopCard}>
+            <img src={shop.image} alt={shop.name} />
+            <h2>{shop.name}</h2>
+            <p>{shop.address}</p>
+          </Link>
+        ))}
+      </div>
     </div>
   
   );

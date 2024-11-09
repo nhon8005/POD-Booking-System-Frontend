@@ -8,26 +8,26 @@
   .shopDetails {
     display: flex;
     align-items: flex-start;
-    margin-bottom: 20px;
-    max-width: 800px; // Limit the width of the content
-    width: 100%;
-
+    border: 1px solid #000; // Add this line to create a border
+    padding: 20px; // Add padding to create space between the border and the content
+  
     .shopImage {
       width: 300px; // Fixed width for the image
       height: auto;
       border-radius: 8px;
-      margin-right: 20px;
+      margin-right: 200px;
+      margin-top: 50px;
     }
-
+  
     .shopInfo {
       flex: 1;
       text-align: left;
-      margin-top: 40px; // Add a larger margin to push the information down
-
+      margin-top: 20px; // Add a larger margin to push the information down
+  
       h1 {
         margin-bottom: 20px;
       }
-
+  
       p {
         margin: 10px 0;
       }

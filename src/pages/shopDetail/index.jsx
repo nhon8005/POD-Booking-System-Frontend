@@ -58,7 +58,7 @@ const CoffeeShopDetailPage = () => {
   if (error) return <p>Error: {error.message}</p>;
 
   return (
-    <div className={styles.coffeeShopDetailPage}>
+    <div className={styles.coffeeShopDetailPage} style={{ marginTop: "135px" }}>
       <div className={styles.shopDetails}>
         <img src={coffeeShop.image} alt={coffeeShop.name} className={styles.shopImage} />
         <div className={styles.shopInfo}>
