@@ -25,6 +25,7 @@ import PODBookingPage from "./pages/pod-booking";
 import CoffeeShopsPage from "./pages/shop";
 import PODBooking from "./pages/booking-page";
 import SuccessPage from "./pages/success";
+import PaymentPage from "./pages/payment";
 
 const Mycontext = createContext();
 

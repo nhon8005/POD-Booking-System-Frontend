@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import styles from './CoffeeShopsPage.module.scss';
 import api from '../../config/axios';
 import { Button, DatePicker, Form, Input, message } from 'antd';
@@ -66,12 +65,9 @@ const CoffeeShopsPage = () => {
   return (
     <div className={styles.coffeeShopsPage} style={{ marginTop: "135px" }}>
       <h1>Coffee Shops</h1>
-      <p>
-        Discover the best coffee shops around you. Search by name or address.
-      </p>
       <div className={styles.coffeeShopsGrid}>
         {coffeeShops.map(shop => (
-          <Link to={`/coffee-shops/${shop.id}`} key={shop.id} className={styles.coffeeShopCard}>
+          <div key={shop.id} className={styles.coffeeShopCard}>
             <img src={shop.image} alt={shop.name} />
             <div className={styles.coffeeShopInfo}>
               <h2>{shop.name}</h2>
@@ -153,30 +149,7 @@ const CoffeeShopsPage = () => {
             </div>
           )}
       </div>
-      
-      <h2>Search by name</h2>
-      <p>Find a coffee shop by name</p>
-
-      <form className={styles.searchForm} onSubmit={(e) => e.preventDefault()}>
-        <input
-          type="text"
-          placeholder="Search by name"
-          value={inputValue}
-          onChange={handleInputChange}
-          onKeyDown={handleKeyDown}
-          className={styles.searchInput}
-          autoComplete="off"
-        />
-        <button
-          type="button"
-          onClick={handleSearch}
-          className={styles.searchButton}
-        >
-          Search
-        </button>
-      </form>
     </div>
-  
   );
 };
 
