@@ -70,7 +70,7 @@ function Header() {
     },
     {
       key: "5",
-      label: "Contact",
+      label: <Link to="/faq">FAQ</Link>
     },
     {
       key: "6",

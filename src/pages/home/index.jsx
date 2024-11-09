@@ -14,6 +14,7 @@ function HomePage() {
     <Hero />
     <SearchByName/>
     <BookPage/>
+    <PopularLocations/>
     <ServiceSection/>
     <Testimonials/>
     <Features/>

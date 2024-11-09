@@ -33,6 +33,7 @@ import PODBooking from "./pages/booking-page";
 import SuccessPage from "./pages/success";
 import PaymentPage from "./pages/payment";
 import CoffeeShopDetailPage from "./pages/shopDetail";
+import FAQ from "./pages/faq";
 
 const Mycontext = createContext();
 
@@ -75,6 +76,10 @@ function App() {
         {
           path: "about-us",
           element: <AboutUs />,
+        },
+        {
+          path: "faq",
+          element: <FAQ />,
         },
         {
           path: "product",
