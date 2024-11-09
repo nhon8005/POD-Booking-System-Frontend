@@ -3,14 +3,17 @@ import styles from './CoffeeShopsPage.module.scss';
 import api from '../../config/axios';
 import { Button, DatePicker, Form, Input, message } from 'antd';
 import { useNavigate } from 'react-router-dom';
+import moment from 'moment';
 
 const CoffeeShopsPage = () => {
   const [coffeeShops, setCoffeeShops] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [pods, setPods] = useState([]);
-  const [showPods, setShowPods] = useState(false); // New state for showing PODs section
-  const navigate = useNavigate()
+  const [showPods, setShowPods] = useState(false);
+  const [selectedPod, setSelectedPod] = useState(null); // New state for selected POD
+  const [formKey, setFormKey] = useState(0); // State to force form re-render
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCoffeeShops = async () => {
@@ -27,36 +30,44 @@ const CoffeeShopsPage = () => {
     fetchCoffeeShops();
   }, []);
 
-  const fetchPods = async () => {
+  const fetchPods = async (shopId) => {
+    setLoading(true);
     try {
-      const response = await api.get("/PODs");
-      setPods(response.data); // Set the fetched PODs data
-      setShowPods(true); // Show the PODs section when data is fetched
+      const response = await api.get("/PODs/searchByShopId", { params: { shopId } });
+      setPods(response.data);
+      setShowPods(true);
     } catch (err) {
       setError("Failed to fetch PODs data.");
     } finally {
-      setLoading(false); // Stop loading once the request is finished
+      setLoading(false);
     }
   };
 
   const handleSubmit = async (values) => {
     setLoading(true);
+    const bookingData = {
+      start: values.start.format('YYYY-MM-DDTHH:mm:ss'),
+      end: values.end.format('YYYY-MM-DDTHH:mm:ss'),
+      podId: values.podId,
+    };
     try {
-      const bookingData = {
-        start: values.start.toISOString(),
-        end: values.end.toISOString(),
-        bookId: values.bookId,
-      };
-
       const response = await api.post("/PODBooking/add", bookingData);
       message.success("POD booked successfully!");
       console.log(response.data);
+      console.log(bookingData);
     } catch (error) {
+      console.log(bookingData);
       message.error("Failed to book POD. Please try again.");
       console.error(error);
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleBookClick = (pod) => {
+    console.log("Selected POD:", pod); // Debugging line
+    setSelectedPod(pod);
+    setFormKey(prevKey => prevKey + 1); // Update form key to force re-render
   };
 
   if (loading) return <p>Loading...</p>;
@@ -75,79 +86,88 @@ const CoffeeShopsPage = () => {
               <p>Phone: {shop.phone}</p>
               <p>Open: {shop.openTime} - {shop.closeTime}</p>
               <div className={styles.bookButton}>
-                <Button onClick={fetchPods}>Book</Button>
+                <Button onClick={() => fetchPods(shop.id)}>Book</Button>
               </div>
             </div>
           </div>
         ))}
-          {showPods && (
-            <div className={styles["pods-page"]}>
-              <h1>Our Available PODs</h1>
-              <div className={styles["pods-container"]}>
-                {pods.map((pod) => (
-                  <div className={styles["pod-item"]} key={pod.id}>
-                    <img src={pod.image} alt={pod.description} className={styles["pod-image"]} />
-                    <div className={styles["pod-details"]}>
-                      <h3>{pod.description}</h3>
-                      <p>{pod.location}</p>
-                      <p>Price: {pod.price} vnd</p>
-                    </div>
+        {showPods && (
+          <div className={styles["pods-page"]}>
+            <h1>Our Available PODs</h1>
+            <div className={styles["pods-container"]}>
+              {pods.map((pod) => (
+                <div
+                  className={`${styles["pod-item"]} ${selectedPod && selectedPod.id === pod.id ? styles["selected"] : ""}`}
+                  key={pod.id}
+                >
+                  <img src={pod.image} alt={pod.description} className={styles["pod-image"]} />
+                  <div className={styles["pod-details"]}>
+                    <h3>{pod.description}</h3>
+                    <p>{pod.location}</p>
+                    <p>Price: {pod.price} vnd</p>
+                    <button onClick={() => handleBookClick(pod)}>Book</button>
                   </div>
-                ))}
-                    <div className={styles["booking-page"]}>
-                      <h1>Book a POD</h1>
-                      <Form
-                        layout="vertical"
-                        onFinish={handleSubmit}
-                        className={styles["booking-form"]}
+                </div>
+              ))}
+              {selectedPod && (
+                <div className={styles["booking-page"]}>
+                  <h1>Book a POD</h1>
+                  <Form
+                    key={formKey} // Use formKey to force re-render
+                    layout="vertical"
+                    onFinish={(values) => handleSubmit({ ...values })}
+                    className={styles["booking-form"]}
+                    initialValues={{
+                      pod: selectedPod.id,
+                    }}
+                  >
+                    <Form.Item
+                      label="POD"
+                      name="podId"
+                      initialValue={selectedPod.id}
+                    >
+                      <Input disabled />
+                    </Form.Item>
+                    <Form.Item
+                      label="Start Date and Time"
+                      name="start"
+                      rules={[{ required: true, message: "Please select a start date and time" }]}
+                    >
+                      <DatePicker
+                        showTime={{ format: "HH:mm" }}
+                        format="YYYY-MM-DD HH:mm"
+                        style={{ width: "100%" }}
+                      />
+                    </Form.Item>
+
+                    <Form.Item
+                      label="End Date and Time"
+                      name="end"
+                      rules={[{ required: true, message: "Please select an end date and time" }]}
+                    >
+                      <DatePicker
+                        showTime={{ format: "HH:mm" }}
+                        format="YYYY-MM-DD HH:mm"
+                        style={{ width: "100%" }}
+                      />
+                    </Form.Item>
+
+                    <Form.Item>
+                      <Button
+                        type="primary"
+                        htmlType="submit"
+                        loading={loading}
+                        className={styles["booking-button"]}
                       >
-                        <Form.Item
-                          label="Booking ID"
-                          name="bookId" 
-                          rules={[{ required: true, message: "Please enter a booking ID" }]}
-                        >
-                          <Input type="number" placeholder="Enter booking ID" />
-                        </Form.Item>
-
-                        <Form.Item
-                          label="Start Date and Time"
-                          name="start"
-                          rules={[{ required: true, message: "Please select a start date and time" }]}
-                        >
-                          <DatePicker
-                            showTime={{ format: "HH:mm" }}
-                            format="YYYY-MM-DD HH:mm"
-                            style={{ width: "100%" }}
-                          />
-                        </Form.Item>
-
-                        <Form.Item
-                          label="End Date and Time"
-                          name="end"
-                          rules={[{ required: true, message: "Please select an end date and time" }]}
-                        >
-                          <DatePicker
-                            showTime={{ format: "HH:mm" }}
-                            format="YYYY-MM-DD HH:mm"
-                            style={{ width: "100%" }}
-                          />
-                        </Form.Item>
-
-                        <Form.Item>
-                          <Button
-                            type="primary"
-                            htmlType="submit"
-                            loading={loading}
-                            className={styles["booking-button"]}
-                          >
-                            Book POD
-                          </Button>
-                        </Form.Item>
-                      </Form>
-                    </div>
-              </div>
+                        Book POD
+                      </Button>
+                    </Form.Item>
+                  </Form>
+                </div>
+              )}
             </div>
-          )}
+          </div>
+        )}
       </div>
     </div>
   );

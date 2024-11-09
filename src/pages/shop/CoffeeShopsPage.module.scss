@@ -78,7 +78,11 @@
     }
   }
 }
-
+/* Add this to your CoffeeShopsPage.module.scss */
+.selected {
+  border: 2px solid #1890ff; /* Example highlight style */
+  background-color: #e6f7ff; /* Example highlight style */
+}
 // Styling for PODs section
 .pods-page {
   margin-top: 30px;
