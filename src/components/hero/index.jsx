@@ -1,6 +1,7 @@
 // Hero.js
 import React, { useState } from 'react';
 import './index.scss';
+import { useNavigate } from 'react-router-dom';
 
 const sliderImages = [
   'src/assets/istockphoto-1216782625-612x612.png', // Replace with actual image paths
@@ -19,13 +20,15 @@ const Hero = () => {
     setCurrentSlide((prevSlide) => (prevSlide - 1 + sliderImages.length) % sliderImages.length);
   };
 
+  const navigate = useNavigate()
+
   return (
     <section className="hero">
       <div className="hero-content">
         <h1>POD Booking<br/> <span>System</span></h1>
         <p>A seamless booking system for POD workspaces, allowing users<br/> 
         to schedule, manage, and optimize reservations.</p>
-        <button className="btn-primary" onClick={() => window.location.href='/coffee-shops'}>Learn More</button> 
+        <button className="btn-primary" onClick={() => navigate('about-us')}>Learn More</button>
         <div className="stats">
           <div><strong>1k+</strong><span>Users</span></div>
           <div><strong>200+</strong><span>Locations</span></div>

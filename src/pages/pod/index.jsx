@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import api from "../../config/axios";; // Adjust the path if needed
+import styles from "./PodsPage.module.scss";
+
 
 const PodsPage = () => {
   const [pods, setPods] = useState([]); // State to store PODs data
@@ -29,13 +31,13 @@ const PodsPage = () => {
   if (error) return <div>{error}</div>;
 
   return (
-    <div className="pods-page">
+    <div className={styles["pods-page"]}>
       <h1>Our Available PODs</h1>
-      <div className="pods-container">
+      <div className={styles["pods-container"]}>
         {pods.map((pod) => (
-          <div className="pod-item" key={pod.id}>
-            <img src={pod.image} alt={pod.description} className="pod-image" />
-            <div className="pod-details">
+          <div className={styles["pod-item"]} key={pod.id}>
+            <img src={pod.image} alt={pod.description} className={styles["pod-image"]} />
+            <div className={styles["pod-details"]}>
               <h3>{pod.description}</h3>
               <p>{pod.location}</p>
               <p>Price: ${pod.price}</p>
