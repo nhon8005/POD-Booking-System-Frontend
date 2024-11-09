@@ -51,10 +51,11 @@ export default function UsersTableComponent({ thead, tbody }) {
             // Lấy dữ liệu người dùng hiện tại
             const response = await api.get(`/account/id`, { params: { id } });
             const userData = response.data;
-            console.log("User data:", userData);
             // Cập nhật role thành "BANNED"
             userData.role = "BANNED";
-
+            if (userData.role === "BANNED") {
+                userData.role = "USER";
+            }
             // Gửi yêu cầu cập nhật người dùng
             const updateResponse = await api.put(`/account/account/${id}`, userData);
             console.log("User banned:", updateResponse.data);

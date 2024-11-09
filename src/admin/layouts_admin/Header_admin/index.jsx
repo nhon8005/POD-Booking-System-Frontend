@@ -46,6 +46,15 @@ const HeaderAdmin = () => {
     setNotificationsAnchorEl(null);
   };
 
+  const userName = localStorage.getItem('name') || 'User';
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('name');
+    // Redirect to login page or any other action
+    window.location.href = "/"; // Chuyển hướng về trang homepage
+  };
+
   return (
     <>
       {/* Header */}
@@ -56,33 +65,27 @@ const HeaderAdmin = () => {
             {/* Logo */}
             <div className="col-sm-2 part1">
               <Link to={'/'} className="d-flex align-items-center logo">
-                <img src= {logo} alt="logo"/>
+                <img src={logo} alt="logo" />
                 <span className="ml-2">BooCafe</span>
               </Link>
             </div>
 
             <div className="col-sm-3 d-flex align-items-center part2 pl-4">
-              <Button className="rounded-circle mr-3" onClick={() => context.
-                setIsToggleSidebar(!context.isToggleSidebar)}>
-                  {
-                      context.isToggleSidebar===false ? <MdMenuOpen /> : <MdOutlineMenu/>
-                  }
+              <Button className="rounded-circle mr-3" onClick={() => context.setIsToggleSidebar(!context.isToggleSidebar)}>
+                {context.isToggleSidebar === false ? <MdMenuOpen /> : <MdOutlineMenu />}
               </Button>
               <SearchBox />
             </div>
 
             <div className="col-sm-7 d-flex align-items-center justify-content-end part3">
-              <Button className="rounded-circle mr-3" onClick={()=>context.
-                setThemeMode(!context.themeMode)}>
+              <Button className="rounded-circle mr-3" onClick={() => context.setThemeMode(!context.themeMode)}>
                 <MdOutlineLightMode />
               </Button>
 
               <div className='dropdownWrapper position-relative'>
-                <Button className="rounded-circle mr-3"
-                  onClick={handleOpenNotifications}
-                ><FaRegBell /></Button>
+                <Button className="rounded-circle mr-3" onClick={handleOpenNotifications}><FaRegBell /></Button>
 
-                {/* Drop Down Notifications   */}
+                {/* Drop Down Notifications */}
 
                 <Menu
                   anchorEl={notificationsAnchorEl}
@@ -91,7 +94,7 @@ const HeaderAdmin = () => {
                   open={openNotifications}
                   onClose={handleCloseNotifications}
                   onClick={handleCloseNotifications}
-                  transformOrigin={{ horizontal: 'right', vertical: 'top'}}
+                  transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                   anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                 >
 
@@ -107,7 +110,7 @@ const HeaderAdmin = () => {
                         <div>
                           <div className='userImg'>
                             <span className='rounded-circle'>
-                              <img src= {imgAd} alt='imgAd'/>
+                              <img src={imgAd} alt='imgAd' />
                             </span>
                           </div>
                         </div>
@@ -222,7 +225,30 @@ const HeaderAdmin = () => {
                         <div>
                           <div className='userImg'>
                             <span className='rounded-circle'>
-                              <img src= {imgAd} alt='imgAd' />
+                              <img src="https://avatars.githubusercontent.com/u/155642553?v=4" />
+                            </span>
+                          </div>
+                        </div>
+
+                        <div className='dropdownInfo'>
+                          <h4>
+                            <span>
+                              <b>VyNgok</b>
+                              added to her favorites list
+                              <b> Leather belt steve madden</b>
+                            </span>
+                          </h4>
+                          <p className='text-sky mb-0'>few seconds ago</p>
+                        </div>
+                      </div>
+                    </MenuItem>
+
+                    <MenuItem onClick={handleCloseNotifications}>
+                      <div className='d-flex'>
+                        <div>
+                          <div className='userImg'>
+                            <span className='rounded-circle'>
+                              <img src={imgAd} alt='imgAd' />
                             </span>
                           </div>
                         </div>
@@ -241,25 +267,20 @@ const HeaderAdmin = () => {
                     </MenuItem>
                   </div>
                 </Menu>
-
-
-
               </div>
 
               {/* My Account */}
 
               <div className="myAccWrapper">
-                <Button className=" myAcc d-flex align-items-center"
-                  onClick={handleOpenMyAcc}>
+                <Button className=" myAcc d-flex align-items-center" onClick={handleOpenMyAcc}>
                   <div className="userImg">
                     <span className="rounded-circle">
-                      <img src= {imgAd} alt='imgAd' />
+                      <img src={imgAd} alt='imgAd' />
                     </span>
                   </div>
                   <div className="userInfo">
-                    <h4>VyNgok</h4>
+                    <h4>{userName}</h4>
                   </div>
-
                 </Button>
                 <Menu
                   anchorEl={anchorEl}
@@ -283,7 +304,7 @@ const HeaderAdmin = () => {
                     </ListItemIcon>
                     Reset Password
                   </MenuItem>
-                  <MenuItem onClick={handleCloseMyAcc}>
+                  <MenuItem onClick={() => { handleLogout(); handleCloseMyAcc(); }}>
                     <ListItemIcon>
                       <Logout fontSize="small" />
                     </ListItemIcon>
@@ -292,8 +313,6 @@ const HeaderAdmin = () => {
                 </Menu>
               </div>
             </div>
-
-
           </div>
         </div>
       </header>
