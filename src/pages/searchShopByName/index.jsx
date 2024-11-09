@@ -1,17 +1,17 @@
 import React, { useState } from "react";
 import { HomeOutlined, PhoneOutlined, ClockCircleOutlined } from "@ant-design/icons"; // Import icons
 import api from "../../config/axios";
-import styles from "./BookPage.module.scss";
+import styles from "./SearchByName.module.scss";
 
-const BookPage = () => {
-  const [address, setAddress] = useState("");
+const SearchByName = () => {
+  const [name, setName] = useState("");
   const [results, setResults] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const handleSearch = async () => {
-    if (!address.trim()) {
-      setError("Please enter an address.");
+    if (!name.trim()) {
+      setError("Please enter a coffee shop name.");
       setResults([]);
       return;
     }
@@ -20,8 +20,8 @@ const BookPage = () => {
     setError(null);
 
     try {
-      const response = await api.get(`coffeeshops/searchByAddress`, {
-        params: { address },
+      const response = await api.get(`coffeeshops/searchByName`, {
+        params: { name },
       });
       const data = Array.isArray(response.data) ? response.data : [response.data];
       setResults(data);
@@ -34,14 +34,14 @@ const BookPage = () => {
   };
 
   return (
-    <div className={styles.bookPage} style={{marginTop: '135px'}}>
-      <h1>Search for Coffee Shops</h1>
+    <div className={styles.SearchByName} style={{ marginTop: '135px' }}>
+      <h1>Search for Coffee Shops by Name</h1>
       <div className={styles.searchContainer}>
         <input
           type="text"
-          placeholder="Enter address"
-          value={address}
-          onChange={(e) => setAddress(e.target.value)}
+          placeholder="Enter coffee shop name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
         />
         <button onClick={handleSearch}>Search</button>
       </div>
@@ -72,11 +72,11 @@ const BookPage = () => {
             </div>
           ))
         ) : (
-          !loading && <p className={styles.noResults}>No coffee shops found for this address.</p>
+          !loading && <p className={styles.noResults}>No coffee shops found with this name.</p>
         )}
       </div>
     </div>
   );
 };
 
-export default BookPage;
+export default SearchByName;

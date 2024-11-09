@@ -22,24 +22,12 @@ function Header() {
     },
     {
       key: "2",
-      label: <Link to="/book">Booking</Link>,
+      label: <Link to="/shop">Booking</Link>,
       
     },
     {
       key: "3",
-      label: "Order",
-      icon: <DownOutlined />,
-      
-      children: [
-        {
-          key: "POD",
-          label: <Link to="/product">Product</Link>,
-        },
-        {
-          key: "Product",
-          label: <Link to="/">Order</Link>,
-        },
-      ],
+      label: <Link to="/product">Product</Link>,
     },
     {
       key: "4",

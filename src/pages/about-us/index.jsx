@@ -5,8 +5,8 @@ import "./index.scss";
 
 const teamMembers = [
   {
-    name: "Alice Smith",
-    role: "Project Manager",
+    name: "Lê Hoàn Nhơn",
+    role: "Frontend Developer",
     image: "src/assets/pexels-olly-846741.png", // Update with the actual path to the image
     social: {
       facebook: "https://facebook.com/alice",
@@ -15,7 +15,7 @@ const teamMembers = [
     },
   },
   {
-    name: "Bob Johnson",
+    name: "Nguyễn	Ngọc Tường Vi",
     role: "Frontend Developer",
     image: "src/assets/pexels-olly-846741.png", // Update with the actual path to the image
     social: {
@@ -25,7 +25,7 @@ const teamMembers = [
     },
   },
   {
-    name: "Charlie Brown",
+    name: "Trần	Hữu	Quang",
     role: "Backend Developer",
     image: "src/assets/pexels-olly-846741.png", // Update with the actual path to the image
     social: {
@@ -35,8 +35,8 @@ const teamMembers = [
     },
   },
   {
-    name: "Diana Prince",
-    role: "UI/UX Designer",
+    name: "Lâm Thanh Anh	Quân",
+    role: "Fullstack Developer",
     image: "src/assets/pexels-olly-846741.png", // Update with the actual path to the image
     social: {
       facebook: "https://facebook.com/diana",
@@ -45,8 +45,8 @@ const teamMembers = [
     },
   },
   {
-    name: "Diana Prince",
-    role: "UI/UX Designer",
+    name: "Lê	Hoàng Minh Thư",
+    role: "Mobile Developer",
     image: "src/assets/pexels-olly-846741.png", // Update with the actual path to the image
     social: {
       facebook: "https://facebook.com/diana",
@@ -89,7 +89,7 @@ const AboutUs = () => {
             </p>
           </div>
           <div className="image-container">
-            <img src="src/assets/pexels-olly-846741.png" alt="Workspace" className="description-image" />
+            <img src="src\assets\comfortable-workplace-counter-bar-cafe-with-take-away-coffee-cup-laptop-note-book-mobile-w_880763-22208.png" alt="Workspace" className="description-image" />
           </div>
         </div>
       </div>

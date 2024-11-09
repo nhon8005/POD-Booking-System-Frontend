@@ -36,7 +36,7 @@ function PODBookingPage() {
       >
         <Form.Item
           label="Booking ID"
-          name="bookId"
+          name="bookId" 
           rules={[{ required: true, message: "Please enter a booking ID" }]}
         >
           <Input type="number" placeholder="Enter booking ID" />

@@ -1,8 +1,11 @@
 // ServiceSection.js
 import React from 'react';
 import './index.scss';
+import { useNavigate } from 'react-router-dom';
 
 const ServiceSection = () => {
+  const navigate = useNavigate()
+
   return (
     <section className="service-section">
       <div className="service-content">
@@ -12,7 +15,7 @@ const ServiceSection = () => {
           essential to offer comfortable and flexible workspaces. We ensure <br/>
           that you have everything you need to succeed.
         </p>
-        <button className="btn-primary">Learn More</button>
+        <button className="btn-primary" onClick={() => navigate('about-us')}>Learn More</button>
       </div>
       <div className="service-image">
         <img src="src\assets\istockphoto-930090080-612x612.png" alt="POD workspace" />
