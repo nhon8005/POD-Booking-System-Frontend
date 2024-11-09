@@ -43,7 +43,7 @@ function LoginPage() {
   }
 
   const handleLogin = async (values) => {
-  try{  
+    try{  
       const response = await api.post('account/login', values);
       toast.success("Success")
       console.log(response.data);
@@ -55,11 +55,12 @@ function LoginPage() {
       localStorage.setItem("name", response.data.name);
 
       navigate("/");
-      // if (role === 'USER') {   
-      //   navigate("/");
-      // }
-      
-    }catch(err){
+      if (role === 'USER') {   
+        navigate("/");
+      } else if (role === 'ADMIN') {
+        navigate("/admin");
+      }
+    } catch(err) {
       toast.error(err.response.data);
     }
   }

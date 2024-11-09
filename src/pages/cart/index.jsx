@@ -16,6 +16,7 @@ function CartPage() {
     const fetchShops = async () => {
       try {
         const response = await api.get("/coffeeshops");
+        console.log("Fetched shops:", response.data); // Debug log
         setShops(response.data);
       } catch (err) {
         toast.error("Failed to fetch shops");
@@ -30,7 +31,9 @@ function CartPage() {
   };
 
   const getShopName = (shopId) => {
+    console.log("Finding shop with ID:", shopId); // Debug log
     const shop = shops.find((shop) => shop.id === shopId);
+    console.log("Found shop:", shop); // Debug log
     return shop ? shop.name : "Unknown Shop";
   };
 

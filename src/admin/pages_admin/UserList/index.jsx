@@ -24,7 +24,7 @@ const Users = () => {
 
     const fetchUsers = async () => {
         try {
-            const response = await api.get('account/account'); // Đường dẫn API để lấy người dùng
+            const response = await api.get('/account'); // Đường dẫn API để lấy người dùng
             setUsers(response.data);
             setFilteredUsers(response.data); // Khởi tạo filteredUsers
             setLoading(false);

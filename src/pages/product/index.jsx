@@ -4,8 +4,7 @@ import api from "../../config/axios";
 import { addProduct } from '../../redux/features/cartSlice';
 import './ProductsPage.scss';
 
-
-const ProductsPage = () => {
+const ProductsPage = ({ shopId }) => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -27,7 +26,7 @@ const ProductsPage = () => {
   }, []);
 
   const handleAddToCart = (product) => {
-    dispatch(addProduct(product));
+    dispatch(addProduct({ ...product, shopId }));
   };
 
   if (loading) return <div>Loading...</div>;
