@@ -17,7 +17,7 @@ export default function ClientsTableComponent({ thead, tbody }) {
                         <tr key={ index }> 
                             <td>
                                 <div className="mc-table-profile">
-                                    <img src={ item.src } alt={ item.alt } />
+                                    {/* <img src={ item.src } alt={ item.alt } /> */}
                                     <p>{ item.name }</p>
                                 </div>
                             </td>

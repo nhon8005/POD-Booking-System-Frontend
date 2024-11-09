@@ -2,14 +2,14 @@ import React, { useState, useEffect } from "react";
 import { Modal, Form } from "react-bootstrap";
 import AnchorComponent from "../elements/AnchorComponent";
 import ButtonComponent from "../elements/ButtonComponent";
-import api from "../../../config/axios"; // Import api từ cấu hình Axios
+import api from "../../../config/axios";
 
-export default function ProductsTableComponent({ thead, tbody }) {
-    const [editProduct, setEditProduct] = useState(false);
+export default function CoffeeShopTableComponent({ thead, tbody }) {
+    const [editCoffee, setEditCoffee] = useState(false);
     const [userData, setUserData] = useState("");
     const [alertModal, setAlertModal] = useState(false);
     const [data, setData] = useState([]);
-    const [selectedProductId, setSelectedProductId] = useState(null); // Để lưu ID của sản phẩm được chọn
+    const [selectedCoffeeId, setSelectedCoffeeId] = useState(null); // Để lưu ID của coffee shop được chọn
 
     useEffect(() => {
         setData(tbody);
@@ -32,28 +32,28 @@ export default function ProductsTableComponent({ thead, tbody }) {
     };
 
     const handleDelete = async () => {
-        if (selectedProductId) {
+        if (selectedCoffeeId) {
             try {
-                await api.delete(`/product/${selectedProductId}`);
-                // Xoá sản phẩm ra khỏi danh sách hiển thị
-                const updatedData = data.filter((item) => item.id !== selectedProductId);
+                await api.delete(`http://localhost:8080/api/coffeeshops/${selectedCoffeeId}`);
+                // Xoá coffee shop ra khỏi danh sách hiển thị
+                const updatedData = data.filter((item) => item.id !== selectedCoffeeId);
                 setData(updatedData);
                 setAlertModal(false); // Đóng modal sau khi xoá
             } catch (error) {
-                console.error("Failed to delete product:", error);
+                console.error("Failed to delete coffee shop:", error);
             }
         }
     };
 
-    const updateProduct = async () => {
+    const updateCoffeeShop = async () => {
         try {
-            await api.put(`/product/${userData.id}`, userData);
-            // Cập nhật dữ liệu sản phẩm
+            await api.put(`http://localhost:8080/api/coffeeshops/update/${userData.id}`, userData);
+            // Update the data state to reflect the new coffee shop details
             const updatedData = data.map(item => item.id === userData.id ? userData : item);
             setData(updatedData);
-            setEditProduct(false); // Đóng modal chỉnh sửa
+            setEditCoffee(false); // Close the edit modal
         } catch (error) {
-            console.error("Failed to update product:", error);
+            console.error("Failed to update coffee shop:", error);
         }
     };
 
@@ -94,25 +94,22 @@ export default function ProductsTableComponent({ thead, tbody }) {
                             </td>
                             <td>
                                 <div className="mc-table-product md">
-                                    <img src={item.image}  />
                                     <div className="mc-table-group">
                                         <h6>{item.name}</h6>
                                     </div>
                                 </div>
                             </td>
-                            <td>{item.description}</td>
-                            <td>
-                                <div className="mc-table-price">
-                                    <p>{item.price}</p>
-                                </div>
-                            </td>
+                            <td>{item.address}</td>
+                            <td>{item.phone}</td>
+                            <td>{item.openTime}</td>
+                            <td>{item.closeTime}</td>
                             <td>
                                 <div className="mc-table-action">
-                                    <AnchorComponent to={`/admin/product-view/${item.id}`} title="View" className="material-icons view">
+                                    <AnchorComponent to={`/admin/coffeeshop-view/${item.id}`} title="View" className="material-icons view">
                                         visibility
                                     </AnchorComponent>
-                                    <ButtonComponent title="Edit" className="material-icons edit" icon="edit" onClick={() => { setEditProduct(true); setUserData(item); }} />
-                                    <ButtonComponent type="button" title="Delete" className="material-icons delete" onClick={() => { setAlertModal(true); setSelectedProductId(item.id); }}>
+                                    <ButtonComponent title="Edit" className="material-icons edit" icon="edit" onClick={() => { setEditCoffee(true); setUserData(item); }} />
+                                    <ButtonComponent type="button" title="Delete" className="material-icons delete" onClick={() => { setAlertModal(true); setSelectedCoffeeId(item.id); }}>
                                         delete
                                     </ButtonComponent>
                                 </div>
@@ -122,7 +119,8 @@ export default function ProductsTableComponent({ thead, tbody }) {
                 </tbody>
             </table>
 
-            <Modal show={editProduct} onHide={() => { setEditProduct(false); setUserData(""); }}>
+            {/* Modal chỉnh sửa */}
+            <Modal show={editCoffee} onHide={() => { setEditCoffee(false); setUserData(""); }}>
                 <div className="mc-user-modal">
                     <h4>{userData?.username}</h4>
                     <p>{userData?.email}</p>
@@ -132,50 +130,80 @@ export default function ProductsTableComponent({ thead, tbody }) {
                             type="text"
                             defaultValue={userData?.name}
                             onChange={(e) => setUserData({ ...userData, name: e.target.value })}
-                            placeholder="Enter Product Name"
+                            placeholder="Enter Coffee Shop Name"
+                        />
+                    </Form.Group>
+                    <Form.Group className="form-group inline">
+                        <Form.Label>Address</Form.Label>
+                        <Form.Control
+                            type="text"
+                            defaultValue={userData?.address}
+                            onChange={(e) => setUserData({ ...userData, address: e.target.value })}
+                            placeholder="Enter Coffee Shop Address"
                         />
                     </Form.Group>
                     <Form.Group className="form-group inline mb-4">
                         <Form.Label>Image</Form.Label>
                         <Form.Control
-                            type="text"            
-                            defaultValue={userData?.image} 
-                            onChange={(e) => setUserData({ ...userData, image: e.target.value })}  
-                            placeholder="Enter Product Image"
-                        />
-                    </Form.Group>
-                    <Form.Group className="form-group inline">
-                        <Form.Label>Description</Form.Label>
-                        <Form.Control
-                            as="textarea"  
-                            rows={3}  
-                            defaultValue={userData?.description}  
-                            onChange={(e) => setUserData({ ...userData, description: e.target.value })} 
-                            placeholder="Enter Product Description"
+                            type="text"
+                            defaultValue={userData?.image || ""} // Kiểm tra giá trị null hoặc undefined
+                            onChange={(e) => setUserData({ ...userData, image: e.target.value })}
+                            placeholder="Enter Coffee Shop Image URL"
                         />
                     </Form.Group>
                     <Form.Group className="form-group inline mb-4">
-                        <Form.Label>Price</Form.Label>
+                        <Form.Label>Phone</Form.Label>
                         <Form.Control
                             type="number"
                             step="0.01"  // Cho phép nhập giá thập phân
-                            defaultValue={userData?.price}  // Sử dụng giá trị mặc định từ userData
-                            onChange={(e) => setUserData({ ...userData, price: parseFloat(e.target.value) })}  // Cập nhật price khi người dùng nhập
-                            placeholder="Enter Product Price"
+                            defaultValue={userData?.phone}  // Sử dụng giá trị mặc định từ userData
+                            onChange={(e) => setUserData({ ...userData, phone: parseFloat(e.target.value) })}  // Cập nhật price khi người dùng nhập
+                            placeholder="Enter Coffee Shop Phone"
+                        />
+                    </Form.Group>
+                    <Form.Group className="form-group inline mb-4">
+                        <Form.Label>Open Time</Form.Label>
+                        <Form.Control
+                            type="time" // Định dạng thời gian
+                            defaultValue={userData?.openTime || ""} // Giá trị mặc định
+                            onChange={(e) => setUserData({ ...userData, openTime: e.target.value })}
+                            placeholder="Enter Coffee Shop Open Time"
+                        />
+                    </Form.Group>
+                    <Form.Group className="form-group inline mb-4">
+                        <Form.Label>Close Time</Form.Label>
+                        <Form.Control
+                            type="time" // Định dạng thời gian
+                            defaultValue={userData?.closeTime || ""}
+                            onChange={(e) => setUserData({ ...userData, closeTime: e.target.value })}
+                            placeholder="Enter Coffee Shop Close Time"
                         />
                     </Form.Group>
                     <Modal.Footer>
-                        <ButtonComponent type="button" className="btn btn-secondary" onClick={() => setEditProduct(false)}>Close</ButtonComponent>
-                        <ButtonComponent type="button" className="btn btn-success" onClick={updateProduct}>Save Changes</ButtonComponent>
+                        <ButtonComponent
+                            type="button"
+                            className="btn btn-secondary"
+                            onClick={() => setEditCoffee(false)}
+                        >
+                            Close
+                        </ButtonComponent>
+                        <ButtonComponent
+                            type="button"
+                            className="btn btn-success"
+                            onClick={updateCoffeeShop} // Gọi hàm updateCoffeeShop khi nhấn "Save Changes"
+                        >
+                            Save Changes
+                        </ButtonComponent>
                     </Modal.Footer>
                 </div>
             </Modal>
 
+            {/* Modal xác nhận xoá */}
             <Modal show={alertModal} onHide={() => setAlertModal(false)}>
                 <div className="mc-alert-modal">
                     <i className="material-icons">new_releases</i>
                     <h3>Are you sure?</h3>
-                    <p>Do you want to delete this product?</p>
+                    <p>Do you want to delete this coffee shop?</p>
                     <Modal.Footer>
                         <ButtonComponent type="button" className="btn btn-secondary" onClick={() => setAlertModal(false)}>
                             Close

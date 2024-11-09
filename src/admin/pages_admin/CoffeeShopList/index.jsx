@@ -1,59 +1,58 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Row, Col } from "react-bootstrap";
-import ProductsTableComponent from "../../../admin/components_admin/tables/ProductsTableComponent";
+import CoffeeShopTableComponent from "../../components_admin/tables/CoffeeShopTableComponent";
 import LabelFieldComponent from "../../../admin/components_admin/fields/LabelFieldComponent";
 import PaginationComponent from "../../../admin/components_admin/PaginationComponent";
 import Footer from "../../layouts_admin/Footer_admin";
 import api from "../../../config/axios";
 
-export default function ProductListPage() {
-    const [products, setProducts] = useState([]);  // Lưu tất cả sản phẩm
-    const [filteredProducts, setFilteredProducts] = useState([]);  // Lưu sản phẩm sau khi tìm kiếm
+export default function CoffeeShopListPage() {
+    const [shops, setShops] = useState([]);  // Lưu tất cả coffee shop
+    const [filteredShops, setFilteredShops] = useState([]);  // Lưu coffee shop sau khi tìm kiếm
     const [searchTerm, setSearchTerm] = useState(""); // Từ khóa tìm kiếm
     const [loading, setLoading] = useState(false); // Trạng thái loading
     const [error, setError] = useState(""); // Lỗi khi gọi API
 
-    // Lấy tất cả sản phẩm khi component được render lần đầu
+    // Fetch tất cả coffee shop khi component được render lần đầu
     useEffect(() => {
-        const fetchProducts = async () => {
+        const fetchShops = async () => {
             setLoading(true);
             setError(""); // Reset lỗi khi gọi API
 
             try {
-                const response = await api.get("/product"); // Lấy tất cả sản phẩm
-                setProducts(response.data); // Lưu tất cả sản phẩm vào state products
-                setFilteredProducts(response.data); // Lưu danh sách sản phẩm ban đầu vào filteredProducts
+                const response = await api.get("/coffeeshops"); // Gọi API để lấy coffee shop
+                setShops(response.data); // Lưu tất cả coffee shop
+                setFilteredShops(response.data); // Lưu danh sách coffee shop ban đầu
             } catch (error) {
-                console.error("Error fetching products:", error);
-                setError("Error fetching products.");
+                console.error("Error fetching coffee shops:", error);
+                setError("Error fetching coffee shops.");
             } finally {
                 setLoading(false);
             }
         };
 
-        fetchProducts();
+        fetchShops();
     }, []);
 
-    // Hàm tìm kiếm sản phẩm theo ID hoặc Name
-    const handleSearch = async () => {
+    // Hàm tìm kiếm coffee shop theo ID hoặc Name
+    const handleSearch = () => {
         if (searchTerm) {
-            // Nếu searchTerm là một số, coi đó là ID sản phẩm
             if (!isNaN(searchTerm)) {
-                // Nếu là ID (dạng long), gọi API theo ID
-                const result = products.find(product => product.id === parseInt(searchTerm));
-                setFilteredProducts(result ? [result] : []);
+                // Tìm kiếm theo ID
+                const result = shops.find(shop => shop.id === parseInt(searchTerm));
+                setFilteredShops(result ? [result] : []);
                 setError(result ? "" : "No coffee shop found with that ID.");
             } else {
                 // Tìm kiếm theo Name
-                const filtered = products.filter(product =>
-                    product.name.toLowerCase().includes(searchTerm.toLowerCase())
+                const filtered = shops.filter(shop =>
+                    shop.name.toLowerCase().includes(searchTerm.toLowerCase())
                 );
-                setFilteredProducts(filtered);
-                setError(filtered.length > 0 ? "" : "No coffee products found with that name.");
+                setFilteredShops(filtered);
+                setError(filtered.length > 0 ? "" : "No coffee shops found with that name.");
             }
         } else {
-            setFilteredProducts(products);
+            setFilteredShops(shops);
         }
     };
 
@@ -63,7 +62,9 @@ export default function ProductListPage() {
 
     useEffect(() => {
         handleSearch();
-    }, [searchTerm, products]);
+    }, [searchTerm, shops]);
+
+    
 
     return (
         <div className="mc-main active">
@@ -71,11 +72,11 @@ export default function ProductListPage() {
                 <Col xl={12}>
                     <div className="mc-card">
                         <div className='mc-breadcrumb'>
-                            <h3 className="mc-breadcrumb-title">Product List</h3>
+                            <h3 className="mc-breadcrumb-title">Coffee Shop List</h3>
                             <ul className="mc-breadcrumb-list">
                                 <li className="mc-breadcrumb-item"><Link to='#' className="mc-breadcrumb-link">Home</Link></li>
-                                <li className="mc-breadcrumb-item"><Link to='#' className="mc-breadcrumb-link">Products</Link></li>
-                                <li className="mc-breadcrumb-item">Product List</li>
+                                <li className="mc-breadcrumb-item"><Link to='#' className="mc-breadcrumb-link">Coffee Shop</Link></li>
+                                <li className="mc-breadcrumb-item">Coffee Shop List</li>
                             </ul>
                         </div>
                     </div>
@@ -84,7 +85,6 @@ export default function ProductListPage() {
                 <Col xl={12}>
                     <div className="mc-card">
                         <Row>
-
                             <Col xs={12} sm={6} md={4} lg={3}>
                                 <LabelFieldComponent
                                     type="search"
@@ -92,18 +92,21 @@ export default function ProductListPage() {
                                     placeholder="ID / Name"
                                     labelDir="label-col"
                                     fieldSize="mb-4 w-100 h-md"
-                                    value={searchTerm}  // Gán giá trị tìm kiếm vào input
-                                    onChange={handleSearchChange}  // Cập nhật giá trị tìm kiếm khi người dùng nhập
-
+                                    value={searchTerm}
+                                    onChange={handleSearchChange}
                                 />
                             </Col>
                             <Col xl={12}>
-
-                                <ProductsTableComponent
-                                    thead={["Name", "Description", "Price", "Action"]}
-                                    tbody={filteredProducts}
-                                />
-
+                                {loading ? (
+                                    <p>Loading...</p>
+                                ) : error ? (
+                                    <p>{error}</p>
+                                ) : (
+                                    <CoffeeShopTableComponent 
+                                        thead={["Name", "Address", "Phone", "Open Time", "Close Time",  "Action"]} 
+                                        tbody={filteredShops}
+                                    />
+                                )}
                                 <PaginationComponent />
                             </Col>
                         </Row>

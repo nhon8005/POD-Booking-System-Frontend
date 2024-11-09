@@ -1,11 +1,32 @@
-import React from "react";
-import  LabelFieldComponent from "../fields/LabelFieldComponent";
-import { Row, Col, Dropdown } from "react-bootstrap";
+import React, { useState, useEffect } from "react";
+import { Dropdown } from "react-bootstrap";
 import PaginationComponent from "../PaginationComponent";
 import ProductsTableComponent from "../../components_admin/tables/ProductsTableComponent";
-import products from "../../../assets/data/products.json";
+import api from "../../../config/axios";
 
 export default function ProductsCardComponent() {
+    const [product, setProducts] = useState([]); // Danh sách sản phẩm
+    const [loading, setLoading] = useState(false); // Trạng thái loading
+    const [error, setError] = useState(""); // Lỗi khi gọi API
+
+    useEffect(() => {
+        const fetchProducts = async () => {
+            setLoading(true); // Đặt trạng thái loading khi bắt đầu gọi API
+            setError(""); // Reset lỗi trước khi gọi API
+
+            try {
+                const response = await api.get('/product'); // Lấy danh sách sản phẩm từ API
+                setProducts(response.data); // Lưu sản phẩm vào state
+            } catch (error) {
+                console.error("Error fetching products:", error);
+                setError("Error fetching products."); // Lưu lỗi nếu có
+            } finally {
+                setLoading(false); // Kết thúc trạng thái loading
+            }
+        };
+
+        fetchProducts(); // Gọi API khi component render lần đầu
+    }, []); // Mảng phụ thuộc trống, chỉ gọi khi component mount
 
     return (
         <div className="mc-card">
@@ -30,47 +51,14 @@ export default function ProductsCardComponent() {
                         </button>
                     </Dropdown.Menu>
                 </Dropdown>
-            </div>
-            <Row xs={1} sm={2} xl={4}>
-                <Col>
-                    <LabelFieldComponent
-                        label="Show By"
-                        option={["12 rows", "24 rows", "36 rows"]}
-                        labelDir="label-col"
-                        fieldSize="mb-4 w-100 h-md"
-                    />
-                </Col>
-                <Col>
-                    <LabelFieldComponent
-                        label="Rating"
-                        option={["1 star", "2 stars", "3 stars", "4 stars", "5 stars"]}
-                        labelDir="label-col"
-                        fieldSize="mb-4 w-100 h-md"
-                    />
-                </Col>
-                <Col>
-                    <LabelFieldComponent
-                        label="Coffee Shop"
-                        option={["Highland Coffee", "Seven Days Coffee", "Katinat Coffee"]}
-                        labelDir="label-col"
-                        fieldSize="mb-4 w-100 h-md"
-                    />
-                </Col>
-                <Col>
-                    <LabelFieldComponent
-                        type="search"
-                        label="Search By"
-                        placeholder="ID / Rating / Coffee Shop"
-                        labelDir="label-col"
-                        fieldSize="mb-4 w-100 h-md"
-                    />
-                </Col>
-            </Row>
+            </div>           
             <ProductsTableComponent 
-                thead={products.thead} 
-                tbody={products.tbody} 
+                thead={["Name", "Description", "Price", "Action"]} 
+                tbody={product} // Truyền danh sách sản phẩm vào bảng 
             />
-            <PaginationComponent />
+            <PaginationComponent 
+                
+            />
         </div>
     );
 }

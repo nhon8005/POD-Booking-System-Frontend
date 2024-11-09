@@ -5,9 +5,11 @@ import { Row, Col, Dropdown } from "react-bootstrap";
 import LabelFieldComponent from "../../components_admin/fields/LabelFieldComponent";
 import UsersTableComponent from "../../components_admin/tables/UsersTableComponents";
 import PaginationComponent from "../../components_admin/PaginationComponent";
+import AnchorComponent from "../../components_admin/elements/AnchorComponent";
 import Footer from "../../layouts_admin/Footer_admin";
 import api from "../../../config/axios";
 import { Button } from 'react-bootstrap';
+import { toast } from 'react-toastify';
 
 
 
@@ -17,6 +19,7 @@ const Users = () => {
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
     const [filteredUsers, setFilteredUsers] = useState([]);
+    const [error, setError] = useState("");
 
     useEffect(() => {
         fetchUsers();
@@ -24,42 +27,45 @@ const Users = () => {
 
     const fetchUsers = async () => {
         try {
-            const response = await api.get('/account'); // Đường dẫn API để lấy người dùng
+            const response = await api.get('/account');
             setUsers(response.data);
-            setFilteredUsers(response.data); // Khởi tạo filteredUsers
+            setFilteredUsers(response.data);
             setLoading(false);
         } catch (error) {
+            console.error("API Error:", error.response ? error.response.data : error.message); // Thêm dòng này
             toast.error("Failed to fetch users");
             setLoading(false);
         }
     };
 
-    const handleSearch = (value) => {
-        setSearchTerm(value);
-        if (value) {
-            const filtered = users.filter(user =>
-                account.id.toString().includes(value) ||
-                account.name.toLowerCase().includes(value.toLowerCase()) ||
-                account.email.toLowerCase().includes(value.toLowerCase())
-                
-            );
-            setFilteredUsers(filtered);
+    // Hàm tìm kiếm user theo ID hoặc Name
+    const handleSearch = async () => {
+        if (searchTerm) {
+            if (!isNaN(searchTerm)) {
+                const result = users.find(user => user.id === parseInt(searchTerm));
+                setFilteredUsers(result ? [result] : []);
+                setError(result ? "" : "No user found with that ID.");
+            } else {
+                const filtered = users.filter(user =>
+                    user.username && user.username.toLowerCase().includes(searchTerm.toLowerCase()) // Kiểm tra `name` trước khi dùng `toLowerCase`
+                );
+                setFilteredUsers(filtered);
+                setError(filtered.length > 0 ? "" : "No users found with that name.");
+            }
         } else {
             setFilteredUsers(users);
         }
     };
 
-    const handleDelete = async (Id) => {
-        if (window.confirm("Are you sure you want to delete this user?")) {
-        try {
-            await api.delete(`user/${Id}`); // Đường dẫn API để xóa người dùng
-            toast.success("User deleted successfully");
-            fetchUsers(); // Làm mới danh sách người dùng
-        } catch (error) {
-            toast.error("Failed to delete user");
-        }
-    }
+    const handleSearchChange = (event) => {
+        setSearchTerm(event.target.value);
     };
+
+    useEffect(() => {
+        handleSearch();
+    }, [searchTerm, users]);
+
+
 
     return (
         <>
@@ -77,27 +83,7 @@ const Users = () => {
                             </div>
                         </div>
                     </Col>
-                    <Col xl={4}>
-                        <div className="mc-float-card lg purple">
-                            <h3>547</h3>
-                            <p>Pending Users</p>
-                            <i className="material-icons">pending</i>
-                        </div>
-                    </Col>
-                    <Col xl={4}>
-                        <div className="mc-float-card lg green">
-                            <h3>605</h3>
-                            <p>Approved Users</p>
-                            <i className="material-icons">check_circle</i>
-                        </div>
-                    </Col>
-                    <Col xl={4}>
-                        <div className="mc-float-card lg red">
-                            <h3>249</h3>
-                            <p>Blocked Users</p>
-                            <i className="material-icons">remove_circle</i>
-                        </div>
-                    </Col>
+
                     <Col xl={12}>
                         <div className="mc-card">
                             <div className="mc-card-header">
@@ -120,35 +106,21 @@ const Users = () => {
                                     <LabelFieldComponent
                                         type="search"
                                         label={'Search By'}
-                                        placeholder={('id') + ' / ' + ('name') + ' / ' + ('email') + ' / ' + ('number')}
+                                        placeholder="ID / Name"
                                         labelDir="label-col"
                                         fieldSize="md-4 w-100 h-md"
-                                        onSearch={handleSearch}
+                                        value={searchTerm || ''} // Đảm bảo luôn có giá trị
+                                        onChange={handleSearchChange}
+                                    
                                     />
                                 </Col>
 
                             </Row>
                             <UsersTableComponent
                                 thead={["Username", "Email", "Phone", "Role", "Actions"]}
-                                tbody={filteredUsers.map(account => ({
-                                    key: account.id,
-                                    id: account.id,
-                                    username: account.username,
-                                    email: account.email,
-                                    phone: account.phone,
-                                    role: account.role,
-                                    actions: (
-                                        <div>
-                                            <Link to={`/admin/user-profile/${account.id}`}>
-                                                <Button variant="primary">View</Button>
-                                            </Link>
-                                            <Button onClick={() => {/* Handle edit logic */}}>Edit</Button>
-                                            <Button variant="danger" onClick={() => handleDelete(account.id)}>Delete</Button>
-                                        </div>
-                                    )
-                                }))}
+                                tbody={filteredUsers}
+
                             />
-                            
                             <PaginationComponent />
 
                         </div>

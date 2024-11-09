@@ -1,16 +1,33 @@
-import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useParams, Link } from "react-router-dom";
 import { Row, Col, Dropdown } from "react-bootstrap";
-import  AnchorComponent  from "../../../admin/components_admin/elements/AnchorComponent";
+import AnchorComponent from "../../../admin/components_admin/elements/AnchorComponent";
 import Footer from "../../../admin/layouts_admin/Footer_admin";
 import { FaGithub } from "react-icons/fa";
 import { FaFacebookF } from "react-icons/fa";
+import api from "../../../config/axios";
 
 export default function UserProfilePage() {
-
-   
-    return (   
+    const { id } = useParams();
+    const [account, setAccount] = useState(null);
+    useEffect(() => {
         
+        const fetchAccount = async () => {
+            try {
+                const response = await api.get(`/account/${id}`);
+                console.log("Account data:", response.data);
+                setAccount(response.data);
+            } catch (error) {
+                console.error("Error fetching account details:", error.response ? error.response.data : error.message);
+            }
+        };
+        fetchAccount();
+    }, [id]);
+
+
+
+    return (
+
         <div className="mc-main active">
             <Row>
                 <Col xl={12}>
@@ -42,41 +59,39 @@ export default function UserProfilePage() {
                         </div>
                         <div className="mc-user-group">
                             <div className="mc-user-profile">
-                                <div className="mc-round-avatar md">
+                                {/* <div className="mc-round-avatar md">
                                     <img src="/src/assets/01.webp" alt="avatar" />
-                                </div>
+                                </div> */}
                                 <div className="mc-duel-text md">
-                                    <h3 className="mc-duel-text-title">Vy Ngok</h3>
-                                    {/* <p className="mc-duel-text-descrip">@mironcoder</p> */}
+                                    <h3 className="mc-duel-text-title">{account?.username}</h3>
                                 </div>
                             </div>
                             <div className="mb-4">
                                 <h6 className="mc-divide-title mb-4">Communication</h6>
                                 <ul className="mc-user-metalist">
-                                    <li><i className="material-icons">phone_in_talk</i><span>+84 706354777</span></li>
-                                    <li><i className="material-icons">feed</i><span>jiyuong1808@gmail.com</span></li>
-                                    {/* <li><i className="material-icons">public</i><span>examplehotash.com</span></li> */}
-                                    <li><i className="material-icons">map</i><span>385 Street, Tang Nhon Phu A Ward, Thu Duc City</span></li>
+                                    <li><i className="material-icons">phone_in_talk</i><span>{account?.phone}</span></li>
+                                    <li><i className="material-icons">feed</i><span>{account?.email}</span></li>
+                                    <li><i className="material-icons">person_outline</i><span>{account?.role}</span></li>
                                 </ul>
                             </div>
-                            <div className="mb-4">
+                            {/* <div className="mb-4">
                                 <h6 className="mc-divide-title mb-3">Biography</h6>
                                 <p className="mc-user-bio mb-4">It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets</p>
-                            </div>
+                            </div> */}
                             <div>
                                 <h6 className="mc-divide-title mb-3">Elsewhere</h6>
                                 <nav className="mc-user-social">
                                     <AnchorComponent to="#" className="facebook"><i className="icofont-facebook"><FaFacebookF /></i><span>facebook</span></AnchorComponent>
                                     <AnchorComponent to="#" className="github"><i className="icofont-twitter"><FaGithub /></i><span>github</span></AnchorComponent>
-                    
+
                                 </nav>
                             </div>
                         </div>
                     </div>
                 </Col>
-                
-            </Row> 
+
+            </Row>
             <Footer />
-        </div>      
+        </div>
     )
 }

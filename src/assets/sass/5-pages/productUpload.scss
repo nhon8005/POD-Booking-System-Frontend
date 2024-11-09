@@ -58,25 +58,25 @@
     }
 }
 
-[dir="ltr"] {
+
     .mc-product-upload-image {
         &::after {
             @include position-top-right(absolute, 12px, 12px, 1);
         }
     }
-}
 
-[dir="rtl"] {
+
+
     .mc-product-upload-image {
         &::after {
             @include position-top-left(absolute, 12px, 12px, 1);
         }
     }
-}
+
 
 .mc-product-upload-file {
     position: relative;
-    border-radius: 8px;
+    border-radius: 5px;
     border: 2px dashed #e4e4e4;
     filter: drop-shadow(0px 10px 15px rgba(0, 0, 0, 5%));
     @include transition-linear;

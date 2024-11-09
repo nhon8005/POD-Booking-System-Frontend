@@ -8,11 +8,16 @@ import AboutUs from "./pages/about-us";
 import AdminPage from "./admin/layouts_admin/Admin_layout";
 import UserList from "./admin/pages_admin/UserList";
 import UserProfile from "./admin/pages_admin/UserProfile";
-import MyAccount from "./admin/pages_admin/MyAccount";
+import UserCreate from "./admin/pages_admin/UserCreate";
 import Ecommerce from "./admin/pages_admin/Ecommerce";
 import ProductList from "./admin/pages_admin/ProductList";
 import ProductView from "./admin/pages_admin/ProductView";
-import ProductUp from "./admin/pages_admin/ProductUpload";
+import ProductCreate from "./admin/pages_admin/ProductCreate";
+import CoffeeshopList from "./admin/pages_admin/CoffeeShopList";
+import CoffeeshopView from "./admin/pages_admin/CoffeeShopView";
+import CoffeeCreate from "./admin/pages_admin/CoffeeShopCreate";
+import OrdersListPage from "./admin/pages_admin/OrderList";
+import OrdersView from "./admin/pages_admin/OrdersView";
 import Invoices from "./admin/pages_admin/Invoice";
 import MessagePage from "./admin/pages_admin/Message";
 import SettingsPage from "./admin/pages_admin/Settings";
@@ -123,15 +128,15 @@ function App() {
           element: <UserList />,
         },
         {
-          path: "user-profile",
+          path: "user-profile/:id",
           element: <UserProfile />,
         },
         {
-          path: "my-account",
-          element: <MyAccount />,
+          path: "user-create",
+          element: <UserCreate />,
         },
         {
-          path: "ecommerce",
+          path: "dashboard",
           element: <Ecommerce />,
         },
         {
@@ -139,13 +144,34 @@ function App() {
           element: <ProductList />,
         },
         {
-          path: "product-view",
+          path: "product-view/:id",
           element: <ProductView />,
         },
         {
-          path: "product-upload",
-          element: <ProductUp />,
+          path: "product-create",
+          element: <ProductCreate />,
         },
+        {
+          path: "coffeeshop-list",
+          element: <CoffeeshopList />,
+        },
+        {
+          path: "coffeeshop-view/:id",
+          element: <CoffeeshopView />,
+        },
+        {
+          path: "coffeeshop-create",
+          element: <CoffeeCreate />,
+        },
+        {
+          path: "orders-list",
+          element: <OrdersListPage />,
+        },
+        {
+          path: "orders-view/:id",
+          element: <OrdersView />,
+        },
+
         {
           path: "invoice-list",
           element: <Invoices />,

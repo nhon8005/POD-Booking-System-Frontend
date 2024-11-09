@@ -27,7 +27,7 @@ export default function EcommercePage() {
                         </div>
                     </div>
                 </Col>
-                <Col xs={12} xl={8}>
+                {/* <Col xs={12} xl={8}>
                     <Row xs={1} sm={2}>
                         {heros.map((hero, index) => (
                             <Col key={index}>
@@ -42,13 +42,11 @@ export default function EcommercePage() {
                             </Col>
                         ))}
                     </Row>
-                </Col>
-                <Col xs={12} xl={4}> <SalesCardComponent /> </Col>
+                </Col>                 */}
                 <Col xl={12}> <ProductsCardComponent /> </Col>
-                <Col xl={12}> <RevenueCardComponent /> </Col>
-                {/* <Col xl={4}> <OrdersCardComponent /> </Col> */}
+                <Col xl={12}> <RevenueCardComponent /> </Col>               
                 <Col xl={12}> <ClientsCardComponent /> </Col>
-                {/* <Col xl={6}> <ActivityCardComponent /> </Col> */}
+               
             </Row>
             <Footer />
         </div>

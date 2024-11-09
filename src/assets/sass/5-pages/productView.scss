@@ -38,26 +38,31 @@
 
 .mc-product-view-meta {
     @include flex-dimension(flex-start, flex-start, 0px);
+    gap: 8px;
 
     i { 
         font-size: 20px;
+      
     }
 
     h5 {
-        width: 110px;
+        width: auto;
         font-size: 15px;
         text-transform: capitalize;
+        
     }
 
     span { 
         line-height: 16px;
+        
     }
 
     p {
        
         font-size: 12px;
-        line-height: 18px;
+        line-height: 20px;
         text-transform: capitalize;
+       
 
         del {
             color: #ff304f;
@@ -81,7 +86,7 @@
 
     .mc-product-view-meta {
         i { margin-right: 12px }
-        span { margin-right: 20px }
+        span { margin-right: 10px }
         p del { margin-left: 3px }
     }
 
@@ -89,7 +94,7 @@
 
     .mc-product-view-meta {
         i { margin-left: 12px }
-        span { margin-left: 20px }
+        span { margin-left: 5px }
         p del { margin-right: 3px }
     }
 
