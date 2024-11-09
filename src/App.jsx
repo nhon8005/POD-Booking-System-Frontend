@@ -5,7 +5,7 @@ import RegisterPage from "./pages/register";
 import HomePage from "./pages/home";
 import Layout from "./components/Layout";
 import AboutUs from "./pages/about-us";
-import AdminPage from "./admin/layouts_admin/Admin_layout"
+import AdminPage from "./admin/layouts_admin/Admin_layout";
 import UserList from "./admin/pages_admin/UserList";
 import UserProfile from "./admin/pages_admin/UserProfile";
 import MyAccount from "./admin/pages_admin/MyAccount";
@@ -23,23 +23,24 @@ import ProductsPage from "./pages/product";
 import CartPage from "./pages/cart";
 import PODBookingPage from "./pages/pod-booking";
 import CoffeeShopsPage from "./pages/shop";
+import CoffeeShopDetailPage from "./pages/shopDetail"; 
 import PaymentPage from "./pages/payment";
+
 const Mycontext = createContext();
 
 function App() {
-
   const [isToggleSidebar, setIsToggleSidebar] = useState(false);
   const [themeMode, setThemeMode] = useState(true);
 
   useEffect(() => {
     if (themeMode) {
-      document.body.classList.remove('dark');
-      document.body.classList.add('light');
-      localStorage.setItem('themeMode', 'light');
+      document.body.classList.remove("dark");
+      document.body.classList.add("light");
+      localStorage.setItem("themeMode", "light");
     } else {
-      document.body.classList.remove('light');
-      document.body.classList.add('dark');
-      localStorage.setItem('themeMode', 'dark');
+      document.body.classList.remove("light");
+      document.body.classList.add("dark");
+      localStorage.setItem("themeMode", "dark");
     }
   }, [themeMode]);
 
@@ -75,44 +76,44 @@ function App() {
           path: "product",
           element: <ProductsPage />,
         },
+        {
+          path: "pod",
+          element: <PodsPage />,
+        },
+        {
+          path: "coffee-shops",
+          element: <CoffeeShopsPage />,
+        },
+        {
+          path: "coffee-shops/:id",
+          element: <CoffeeShopDetailPage />,
+        },
       ],
     },
-
     {
       path: "test",
       element: <PodsPage />,
     },
-
     {
       path: "test1",
       element: <PODBookingPage />,
     },
-
     {
       path: "test2",
       element: <CoffeeShopsPage />,
     },
-
-    {
-      path: "payment",
-      element: <PaymentPage />,
-    },
-
     {
       path: "cart",
       element: <CartPage />,
     },
-
     {
       path: "login",
       element: <LoginPage />,
     },
-
     {
       path: "register",
       element: <RegisterPage />,
     },
-
     {
       path: "admin",
       element: (
@@ -125,60 +126,48 @@ function App() {
           path: "user-list",
           element: <UserList />,
         },
-
         {
           path: "user-profile",
           element: <UserProfile />,
         },
-
         {
           path: "my-account",
           element: <MyAccount />,
         },
-
         {
           path: "ecommerce",
           element: <Ecommerce />,
         },
-
         {
           path: "product-list",
           element: <ProductList />,
         },
-
         {
           path: "product-view",
           element: <ProductView />,
         },
-
         {
           path: "product-upload",
           element: <ProductUp />,
         },
-
         {
           path: "invoice-list",
           element: <Invoices />,
         },
-
         {
           path: "messages",
           element: <MessagePage />,
         },
-
         {
           path: "settings",
           element: <SettingsPage />,
         },
-
         {
           path: "booking",
           element: <Booking />,
-        }
-
+        },
       ],
     },
-
   ]);
 
   return <RouterProvider router={router} />;

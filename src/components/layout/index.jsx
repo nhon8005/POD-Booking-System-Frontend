@@ -9,8 +9,8 @@ function Layout() {
         <Header/>
 
         <div className='main-content' style={{
-          padding: '20px',
-          minHeight: '100vh',
+          padding: '10px',
+          minHeight: '60vh',
         }}>
           <Outlet />
         </div>

@@ -25,7 +25,7 @@ const Hero = () => {
         <h1>POD Booking<br/> <span>System</span></h1>
         <p>A seamless booking system for POD workspaces, allowing users<br/> 
         to schedule, manage, and optimize reservations.</p>
-        <button className="btn-primary">Learn More</button>
+        <button className="btn-primary" onClick={() => window.location.href='/coffee-shops'}>Learn More</button> 
         <div className="stats">
           <div><strong>1k+</strong><span>Users</span></div>
           <div><strong>200+</strong><span>Locations</span></div>

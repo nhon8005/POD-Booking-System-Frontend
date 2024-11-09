@@ -3,7 +3,7 @@ import { Layout, Menu, Badge } from "antd";
 import { ShoppingCartOutlined, DownOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-// import { logout } from "../actions"; // Adjust the import path as needed
+import { logout } from "../../actions"; // Adjust the import path as needed
 import "./index.scss";
 
 function Header() {
@@ -12,6 +12,8 @@ function Header() {
   const user = useSelector((store) => store.user); // Get user data from the store
   const dispatch = useDispatch();
   const [name, setUsername] = useState(null);
+  const [isVisible, setIsVisible] = useState(true);
+  let lastScrollY = window.scrollY;
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -20,6 +22,23 @@ function Header() {
       const storedUsername = localStorage.getItem("name");
       setUsername(storedUsername);
     }
+
+    const handleScroll = () => {
+      if (window.scrollY > lastScrollY) {
+        // Scrolling down
+        setIsVisible(false);
+      } else {
+        // Scrolling up
+        setIsVisible(true);
+      }
+      lastScrollY = window.scrollY;
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
   const handleLogout = () => {
@@ -27,9 +46,10 @@ function Header() {
     localStorage.removeItem("token");
     localStorage.removeItem("name");
     setUsername(null);
+    window.location.href = "/"; // Chuyển hướng về trang homepage
   };
 
-  // Định nghĩa items cho menu
+  // Define items for the menu
   const menuItems = [
     {
       key: "1",
@@ -99,7 +119,7 @@ function Header() {
   }
 
   return (
-    <div className="header-container">
+    <div className={`header-container ${isVisible ? "visible" : "hidden"}`}>
       <Header className="header">
         <div className="logo">
           <img src="src/assets/logo.png" alt="BooCafe-logo" className="logo-image" />
