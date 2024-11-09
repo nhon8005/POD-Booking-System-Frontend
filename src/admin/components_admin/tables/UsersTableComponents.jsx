@@ -45,17 +45,39 @@ export default function UsersTableComponent({ thead, tbody }) {
         }
     };
 
-    // Hàm xóa người dùng
-    const deleteUser = async (id) => {
+    // Hàm cấm người dùng
+    const banUser = async (id) => {
         try {
-            const response = await api.delete(`/account/${id}`);
-            console.log("User deleted:", response.data);
-            // Cập nhật lại dữ liệu sau khi xóa
-            setData((prevData) => prevData.filter((user) => user.id !== id));
+            // Lấy dữ liệu người dùng hiện tại
+            const response = await api.get(`/account/id`, { params: { id } });
+            const userData = response.data;
+            console.log("User data:", userData);
+            // Cập nhật role thành "BANNED"
+            userData.role = "BANNED";
+
+            // Gửi yêu cầu cập nhật người dùng
+            const updateResponse = await api.put(`/account/account/${id}`, userData);
+            console.log("User banned:", updateResponse.data);
+            console.log("User banned:", updateResponse.data);
+            // Cập nhật lại dữ liệu sau khi thay đổi
+            setData((prevData) =>
+                prevData.map((user) => (user.id === id ? updateResponse.data : user))
+            );
         } catch (error) {
-            console.error("Error deleting user:", error);
+            console.error("Error banning user:", error);
         }
     };
+    // Hàm xóa người dùng
+    // const deleteUser = async (id) => {
+    //     try {
+    //         const response = await api.delete(`/account/${id}`);
+    //         console.log("User deleted:", response.data);
+    //         // Cập nhật lại dữ liệu sau khi xóa
+    //         setData((prevData) => prevData.filter((user) => user.id !== id));
+    //     } catch (error) {
+    //         console.error("Error deleting user:", error);
+    //     }
+    // };
 
     return (
         <div className="mc-table-responsive">
@@ -189,7 +211,7 @@ export default function UsersTableComponent({ thead, tbody }) {
                             type="button"
                             className="btn btn-danger"
                             onClick={() => {
-                                deleteUser(userData.id); // Gọi API để xóa người dùng
+                                banUser(userData.id); // Gọi API để xóa người dùng
                                 setBlockModal(false); // Đóng modal sau khi xóa
                             }}
                         >

@@ -14,7 +14,7 @@ export default function UserProfilePage() {
         
         const fetchAccount = async () => {
             try {
-                const response = await api.get(`/account/${id}`);
+                const response = await api.get(`/account/id`, { params: { id } });
                 console.log("Account data:", response.data);
                 setAccount(response.data);
             } catch (error) {
