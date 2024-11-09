@@ -33,7 +33,8 @@ import PODBooking from "./pages/booking-page";
 import SuccessPage from "./pages/success";
 import PaymentPage from "./pages/payment";
 import CoffeeShopDetailPage from "./pages/shopDetail";
-
+import BookingHistoryPage from "./pages/bookingHistory";
+import OrderHistoryPage from "./pages/order";
 const Mycontext = createContext();
 
 function App() {
@@ -92,6 +93,14 @@ function App() {
           path: "coffee-shops/:id",
           element: <CoffeeShopDetailPage />,
         },
+        {
+          path: "booking-history",
+          element: <BookingHistoryPage />,
+        },
+        {
+          path:"order-history",
+          element: <OrderHistoryPage />,
+        }
       ],
     },
     {

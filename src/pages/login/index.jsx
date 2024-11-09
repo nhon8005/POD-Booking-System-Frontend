@@ -46,13 +46,13 @@ function LoginPage() {
     try{  
       const response = await api.post('account/login', values);
       toast.success("Success")
-      console.log(response.data);
       dispatch(login(response.data))
       const {role , token} = response.data;
 
       localStorage.setItem("token", token);
       localStorage.setItem("role", role);
       localStorage.setItem("name", response.data.name);
+      localStorage.setItem("uid", response.data.id);
 
       navigate("/");
       if (role === 'USER') {   

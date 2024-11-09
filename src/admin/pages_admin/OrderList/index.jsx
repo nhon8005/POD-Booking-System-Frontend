@@ -22,6 +22,7 @@ export default function OrdersListPage() {
 
             try {
                 const response = await api.get("orders"); // Gọi API để lấy Orders
+                console.log(response.data);
                 const ordersData = response.data.map(order => {
                     return {
                         id: order.id,

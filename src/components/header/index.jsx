@@ -75,6 +75,12 @@ function Header() {
     {
       key: "6",
       label: (
+        <Link to="/booking-history">Book History</Link>
+      ),
+    },
+    {
+      key: "7",
+      label: (
         <Link to="/cart">
           <Badge count={cart.length}>
             <ShoppingCartOutlined className="cart-icon" />
@@ -87,22 +93,22 @@ function Header() {
   if (name) {
     menuItems.push(
       {
-        key: "7",
+        key: "8",
         label: `Hello, ${name}`,
       },
       {
-        key: "8",
+        key: "9",
         label: <span onClick={handleLogout}>Logout</span>,
       }
     );
   } else {
     menuItems.push(
       {
-        key: "7",
+        key: "8",
         label: <Link to="/login">Login</Link>,
       },
       {
-        key: "8",
+        key: "9",
         label: <Link to="/register">Register</Link>,
       }
     );
