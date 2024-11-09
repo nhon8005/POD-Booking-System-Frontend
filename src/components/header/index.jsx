@@ -62,7 +62,7 @@ function Header() {
     },
     {
       key: "3",
-      label: <Link to="/product">Product</Link>,
+      label: <Link to="/coffee-shops">Order Product</Link>,
     },
     {
       key: "4",

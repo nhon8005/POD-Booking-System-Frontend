@@ -22,10 +22,12 @@ import PodsPage from "./pages/pod";
 import ProductsPage from "./pages/product";
 import CartPage from "./pages/cart";
 import PODBookingPage from "./pages/pod-booking";
-import CoffeeShopsPage from "./pages/shop";
+import CoffeeShopsPage2 from "./pages/shop";
+import CoffeeShopsPage from "./pages/coffee-shops";
 import PODBooking from "./pages/booking-page";
 import SuccessPage from "./pages/success";
 import PaymentPage from "./pages/payment";
+import CoffeeShopDetailPage from "./pages/shopDetail";
 
 const Mycontext = createContext();
 
@@ -75,7 +77,15 @@ function App() {
         },
         {
           path: "shop",
+          element: <CoffeeShopsPage2 />,
+        },
+        {
+          path: "coffee-shops",
           element: <CoffeeShopsPage />,
+        },
+        {
+          path: "coffee-shops/:id",
+          element: <CoffeeShopDetailPage />,
         },
       ],
     },

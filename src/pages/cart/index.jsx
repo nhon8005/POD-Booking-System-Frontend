@@ -1,5 +1,5 @@
 import { Button, Image, Table } from "antd";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import api from "../../config/axios";
 import { toast } from "react-toastify";
@@ -8,11 +8,32 @@ import { clearAll } from "../../redux/features/cartSlice";
 
 function CartPage() {
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+  const [shops, setShops] = useState([]);
+  const data = useSelector((store) => store.cart);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const fetchShops = async () => {
+      try {
+        const response = await api.get("/coffeeshops");
+        setShops(response.data);
+      } catch (err) {
+        toast.error("Failed to fetch shops");
+      }
+    };
+
+    fetchShops();
+  }, []);
+
   const onSelectChange = (newSelectedRowKeys) => {
     setSelectedRowKeys(newSelectedRowKeys);
   };
-  const data = useSelector((store) => store.cart);
-  const dispatch = useDispatch();
+
+  const getShopName = (shopId) => {
+    const shop = shops.find((shop) => shop.id === shopId);
+    return shop ? shop.name : "Unknown Shop";
+  };
+
   const columns = [
     {
       title: "Image",
@@ -26,6 +47,11 @@ function CartPage() {
       dataIndex: "name",
     },
     {
+      title: "Shop",
+      dataIndex: "shopId",
+      render: (shopId) => getShopName(shopId),
+    },
+    {
       title: "Price",
       dataIndex: "price",
     },
@@ -34,14 +60,17 @@ function CartPage() {
       dataIndex: "quantity",
     },
   ];
+
   const rowSelection = {
     selectedRowKeys,
     onChange: onSelectChange,
   };
+
   const handleBuy = async () => {
     try {
       const productBought = data.filter((product) => selectedRowKeys.includes(product.id));
       const detail = productBought.map((product) => ({
+        shopId: product.shopId,
         productId: product.id,
         quantity: product.quantity,
       }));
@@ -53,6 +82,7 @@ function CartPage() {
       toast.error("Purchase failed");
     }
   };
+
   return (
     <div className={styles["cart-page"]}>
       <Button
