@@ -3,7 +3,6 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import LoginPage from "./pages/login";
 import RegisterPage from "./pages/register";
 import HomePage from "./pages/home";
-import Layout from "./components/Layout";
 import AboutUs from "./pages/about-us";
 import AdminPage from "./admin/layouts_admin/Admin_layout";
 import UserList from "./admin/pages_admin/UserList";
@@ -34,6 +33,7 @@ import SuccessPage from "./pages/success";
 import PaymentPage from "./pages/payment";
 import CoffeeShopDetailPage from "./pages/shopDetail";
 import FAQ from "./pages/faq";
+import Layout from "./components/Layout";
 
 const Mycontext = createContext();
 

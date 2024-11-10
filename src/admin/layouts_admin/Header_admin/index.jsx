@@ -64,7 +64,7 @@ const HeaderAdmin = () => {
           <div className="row d-flex align-items-center w-100">
             {/* Logo */}
             <div className="col-sm-2 part1">
-              <Link to={'/'} className="d-flex align-items-center logo">
+              <Link to={''} className="d-flex align-items-center logo">
                 <img src={logo} alt="logo" />
                 <span className="ml-2">BooCafe</span>
               </Link>
